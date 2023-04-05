@@ -1,29 +1,34 @@
 <?php
+session_start();
 $con = require "../database.php";
-if (!isset( /*$_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password'], $_POST['username']*/$_POST['register'])) {
-    exit('Empty Fields');
-}
-
-if ($stmt = $con->prepare('SELECT * FROM property WHERE Property_Number = ?')) {
-    $stmt->bind_param('s', $_POST['Property_Number']);
+echo '<script>console.log(' . $_POST['type'] . ');</script>';
+if (empty($_POST['type']) || empty($_POST['number']) || empty($_POST['city']) || empty($_POST['address']) || empty($_POST['rent']) || $_POST['owner'] == 'Default select') {
+    $_SESSION['EmptyFields'] = "Empty fields, please fill all the fileds!";
+    header("Location: ../../dashboardTemplate/html/admin/admin-property-add.php");
+} else if ($stmt = $con->prepare('SELECT * FROM property WHERE Property_Number = ?')) {
+    $stmt->bind_param('s', $_POST['number']);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        echo 'Username excists';
+        $_SESSION['Property_number_error'] = "This number is already used";
+        header("Location: ../../dashboardTemplate/html/admin/admin-property-add.php");
     } else {
-        $sql = 'INSERT INTO property(Property_Type,Property_Number,Property_City,Property_Address,Property_Owner) Values(?,?,?,?,?)';
+        $sql = 'INSERT INTO property(Property_Type,Property_Number,Property_City,Property_Address,RentAmount,Property_Owner) Values(?,?,?,?,?,?)';
         if ($stmt = $con->prepare($sql)) {
-            $stmt->bind_param('sssss', $_POST['type'], $_POST['number'], $_POST['city'], $_POST['address'], $_POST['owner']);
+            $stmt->bind_param('ssssss', $_POST['type'], $_POST['number'], $_POST['city'], $_POST['address'], $_POST['rent'], $_POST['owner']);
             $stmt->execute();
-            header("Location: ../../dashboardTemplate/html/admin/admin-dashboard.php");
+            $_SESSION['Property_add'] = "Property added successfuly";
+            header("Location: ../../dashboardTemplate/html/admin/admin-property-add.php");
         } else {
-            echo ' Error';
+            $_SESSION['Property_error'] = "Error ocured while adding Property";
+            header("Location: ../../dashboardTemplate/html/admin/admin-property-add.php");
         }
     }
     $stmt->close();
 } else {
-    echo 'Error ocured';
+    $_SESSION['Property_error'] = "Error ocured while adding Property";
+    header("Location: ../../dashboardTemplate/html/admin/admin-property-add.php");
 }
 $con->close();
 ?>

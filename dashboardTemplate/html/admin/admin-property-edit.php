@@ -63,7 +63,7 @@ if (isset($_POST['edit'])) {
                                 <span id="basic-icon-default-company2" class="input-group-text"><i
                                         class="bx bx-buildings"></i></span>
                                 <input type="text" id="basic-icon-default-company" class="form-control"
-                                    placeholder="Property City" aria-label="Property City"
+                                    placeholder="Property City" aria-label="Property City" value="<?php echo $city?>"
                                     aria-describedby="basic-icon-default-company2" name="city" />
                             </div>
                         </div>

@@ -1,10 +1,40 @@
 <?php include 'admin-menu.php' ?>
+<?php include '../../../PHP/message.php' ?>
 <?php include 'admin-navbar.php' ?>
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">Forms/</span> Vertical Layouts
+        <span class="text-muted fw-light">Tenants/</span> Add Tenants
     </h4>
+    <?php
+    if (isset($_SESSION["Tenant_add"])) {
+        showMessage($_SESSION["Tenant_add"], "success");
+        unset($_SESSION["Tenant_add"]);
+    }
+    ?>
+    <?php
+    if (isset($_SESSION["EmptyFields"])) {
 
+        showMessage($_SESSION["EmptyFields"], "warning");
+        unset($_SESSION["EmptyFields"]);
+
+    }
+    ?>
+    <?php
+    if (isset($_SESSION["Tenant_username_error"])) {
+
+        showMessage($_SESSION["Tenant_username_error"], "warning");
+        unset($_SESSION["Tenant_username_error"]);
+
+    }
+    ?>
+    <?php
+    if (isset($_SESSION["Tenant_error"])) {
+
+        showMessage($_SESSION["Tenant_error"], "danger");
+        unset($_SESSION["Tenant_error"]);
+
+    }
+    ?>
     <!-- Basic Layout -->
     <div class="row">
         <div class="col-xl">
@@ -21,7 +51,7 @@
                                 <span id="basic-icon-default-fullname2" class="input-group-text"><i
                                         class="bx bx-user"></i></span>
                                 <input type="text" class="form-control" id="basic-icon-default-fullname"
-                                    placeholder="Endri Binaku" aria-label="Endri Binaku"
+                                    placeholder="Fist Name" aria-label="Fist Name"
                                     aria-describedby="basic-icon-default-fullname2" name="firstname" />
                             </div>
                         </div>
@@ -33,6 +63,16 @@
                                 <input type="text" id="basic-icon-default-company" class="form-control"
                                     placeholder="Last Name" aria-label="Last Name"
                                     aria-describedby="basic-icon-default-company2" name="lastname" />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-icon-default-company">Username</label>
+                            <div class="input-group input-group-merge">
+                                <span id="basic-icon-default-company2" class="input-group-text"><i
+                                        class="bx bx-user"></i></span>
+                                <input type="text" id="basic-icon-default-company" class="form-control"
+                                    placeholder="User Name" aria-label="User Name"
+                                    aria-describedby="basic-icon-default-company2" name="username" />
                             </div>
                         </div>
                         <div class="mb-3">
@@ -59,15 +99,60 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="basic-icon-default-company">Username</label>
+                            <label class="form-label" for="basic-icon-default-company">Number</label>
                             <div class="input-group input-group-merge">
                                 <span id="basic-icon-default-company2" class="input-group-text"><i
                                         class="bx bx-user"></i></span>
                                 <input type="text" id="basic-icon-default-company" class="form-control"
-                                    placeholder="User Name" aria-label="User Name"
-                                    aria-describedby="basic-icon-default-company2" name="username" />
+                                    placeholder="Number" aria-label="Number"
+                                    aria-describedby="basic-icon-default-company2" name="number" />
                             </div>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-icon-default-company">City</label>
+                            <div class="input-group input-group-merge">
+                                <span id="basic-icon-default-company2" class="input-group-text"><i
+                                        class="bx bx-user"></i></span>
+                                <input type="text" id="basic-icon-default-company" class="form-control"
+                                    placeholder="City" aria-label="City" aria-describedby="basic-icon-default-company2"
+                                    name="city" />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-icon-default-company">Birthday</label>
+                            <div class="input-group input-group-merge">
+                                <span id="basic-icon-default-company2" class="input-group-text"><i
+                                        class="bx bx-user"></i></span>
+                                <input type="date" id="basic-icon-default-company" class="form-control"
+                                    placeholder="Birthday" aria-label="Birthday"
+                                    aria-describedby="basic-icon-default-company2" name="birthday" />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="defaultSelect" class="form-label">Select Property</label>
+                            <select id="defaultSelect" class="form-select" name="property">
+                                <option>Default select</option>
+
+                                <?php
+                                $con = require "../../../PHP/database.php";
+
+                                $query = "select * from property ";
+
+                                $result = mysqli_query($con, $query);
+
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                    <option value="<?php echo $row['Property_ID'] ?>">
+                                        <?php echo $row['Property_Number'] . " " . $row['Property_Type'] ?>
+                                    </option>
+                                    <?php
+                                }
+                                $con->close();
+                                ?>
+                            </select>
+                        </div>
+
+
                         <button type="submit" class="btn btn-primary" name="register">
                             Register
                         </button>

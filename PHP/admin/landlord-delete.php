@@ -1,4 +1,5 @@
 <?php
+session_start();
 $con = require "../database.php";
 
 if (isset($_POST['delete'])) {
@@ -8,10 +9,11 @@ if (isset($_POST['delete'])) {
     $query_run = mysqli_query($con, $query);
 
     if ($query_run) {
-        echo "User Deleted";
+        $_SESSION['Landlord_delete'] = "Landlord deleted successfuly";
+        header("Location: ../../dashboardTemplate/html/admin/admin-landlord.php");
     } else {
-        echo "User Not Deleted";
-
+        $_SESSION['Landlord_delete_fail'] = "Failed to delete ";
+        header("Location: ../../dashboardTemplate/html/admin/admin-landlord.php");
     }
 }
 

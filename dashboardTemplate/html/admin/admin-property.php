@@ -1,4 +1,5 @@
 <?php include 'admin-menu.php' ?>
+<?php include '../../../PHP/message.php' ?>
 <?php include 'admin-navbar.php' ?>
 
 <?php
@@ -13,6 +14,38 @@ $result = mysqli_query($con, $query);
     <h4 class="fw-bold py-3 mb-4">
         <span class="text-muted fw-light">Landlords/</span> Landlord Details
     </h4>
+    <?php
+    if (isset($_SESSION["Property_delete"])) {
+
+        showMessage($_SESSION["Property_delete"], "success");
+        unset($_SESSION["Property_delete"]);
+
+    }
+    ?>
+    <?php
+    if (isset($_SESSION["Property_delete_fail"])) {
+
+        showMessage($_SESSION["Property_delete_fail"], "danger");
+        unset($_SESSION["Property_delete_fail"]);
+
+    }
+    ?>
+    <?php
+    if (isset($_SESSION["Property_edit"])) {
+
+        showMessage($_SESSION["Property_edit"], "success");
+        unset($_SESSION["Property_edit"]);
+
+    }
+    ?>
+    <?php
+    if (isset($_SESSION["Property_edit_fail"])) {
+
+        showMessage($_SESSION["Property_edit_fail"], "danger");
+        unset($_SESSION["Property_edit_fail"]);
+
+    }
+    ?>
 
     <!-- Basic Layout -->
     <div class="row">
@@ -88,7 +121,7 @@ $result = mysqli_query($con, $query);
                                                 <button type="submit" class="btn btn-outline-info dropdown-item"
                                                     name="edit"><i class="bx bx-edit-alt me-1"></i>Edit</button>
                                             </form>
-                                            <form action="../../../PHP/admin/landlord-delete.php" method="POST">
+                                            <form action="../../../PHP/admin/property-delete.php" method="POST">
                                                 <input type="hidden" name="id" value="<?php echo $row['Property_ID'] ?>">
                                                 <button type="submit" class="btn btn-outline-secondary dropdown-item"
                                                     name="delete"><i class="bx bx-trash me-1"></i>Delete</button>

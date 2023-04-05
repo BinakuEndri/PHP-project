@@ -1,9 +1,43 @@
 <?php include 'admin-menu.php' ?>
+<?php include '../../../PHP/message.php' ?>
 <?php include 'admin-navbar.php' ?>
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
         <span class="text-muted fw-light">Forms/</span> Vertical Layouts
     </h4>
+    <?php
+    if (isset($_SESSION["Property_add"])) {
+        showMessage($_SESSION["Property_add"], "success");
+        unset($_SESSION["Property_add"]);
+
+
+    }
+    ?>
+    <?php
+    if (isset($_SESSION["EmptyFields"])) {
+
+        showMessage($_SESSION["EmptyFields"], "warning");
+        unset($_SESSION["EmptyFields"]);
+
+    }
+    ?>
+    <?php
+    if (isset($_SESSION["Property_username_error"])) {
+
+        showMessage($_SESSION["Property_username_error"], "warning");
+        unset($_SESSION["Property_username_error"]);
+
+    }
+    ?>
+    <?php
+    if (isset($_SESSION["Property_error"])) {
+
+        showMessage($_SESSION["Property_error"], "danger");
+        unset($_SESSION["Property_error"]);
+
+
+    }
+    ?>
 
     <!-- Basic Layout -->
     <div class="row">
@@ -54,6 +88,16 @@
                                 <input type="text" id="basic-icon-default-company" class="form-control"
                                     placeholder="Property Address" aria-label="Property Address"
                                     aria-describedby="basic-icon-default-company2" name="address" />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-icon-default-company">Property Rent Amount</label>
+                            <div class="input-group input-group-merge">
+                                <span id="basic-icon-default-company2" class="input-group-text"><i
+                                        class="bx bx-user"></i></span>
+                                <input type="text" id="basic-icon-default-company" class="form-control"
+                                    placeholder="Rent Amount" aria-label="Rent Amount"
+                                    aria-describedby="basic-icon-default-company2" name="rent" />
                             </div>
                         </div>
                         <div class="mb-3">

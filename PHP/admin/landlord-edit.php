@@ -1,4 +1,5 @@
 <?php
+session_start();
 $con = require "../database.php";
 
 if (isset($_POST['edit'])) {
@@ -16,10 +17,12 @@ if (isset($_POST['edit'])) {
     $query_run = mysqli_query($con, $query);
 
     if ($query_run) {
-        echo "<h1> User Edited </h1>";
-
+        $_SESSION['Landlord_edit'] = "Landlord edited successfuly";
+        header("Location: ../../dashboardTemplate/html/admin/admin-landlord.php");
     } else {
-        echo "User Not Editeds";
+        $_SESSION['Landlord_edit_fail'] = "Landlord failed to edit";
+        header("Location: ../../dashboardTemplate/html/admin/admin-landlord.php");
+
 
     }
 }

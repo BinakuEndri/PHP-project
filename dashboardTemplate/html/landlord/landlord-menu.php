@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (empty($_SESSION["Landlord_ID"])) {
-  header("Location: ../login.php");
+  header("Location: ../logout.php");
 }
 
 if (isset($_SESSION["Landlord_ID"])) {
@@ -95,7 +95,7 @@ if (isset($_SESSION["Landlord_ID"])) {
               <span class="menu-header-text">Properties</span>
             </li>
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link ">
+              <a href="landlord-property.php" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Account Settings">Properties</div>
               </a>

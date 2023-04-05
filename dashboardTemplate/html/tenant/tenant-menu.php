@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (empty($_SESSION["Tenant_ID"])) {
-  header("Location: ../login.php");
+  header("Location: ../logout.php");
 }
 if (isset($_SESSION["Tenant_ID"])) {
 

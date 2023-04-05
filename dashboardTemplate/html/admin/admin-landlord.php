@@ -1,4 +1,5 @@
 <?php include 'admin-menu.php' ?>
+<?php include '../../../PHP/message.php' ?>
 <?php include 'admin-navbar.php' ?>
 
 <?php
@@ -13,6 +14,42 @@ $result = mysqli_query($con, $query);
     <h4 class="fw-bold py-3 mb-4">
         <span class="text-muted fw-light">Landlords/</span> Landlord Details
     </h4>
+    <?php
+    if (isset($_SESSION["Landlord_delete"])) {
+
+        showMessage($_SESSION["Landlord_delete"], "success");
+        unset($_SESSION["Landlord_delete"]);
+
+    }
+    ?>
+    <?php
+    if (isset($_SESSION["Landlord_delete_fail"])) {
+
+        showMessage($_SESSION["Landlord_delete_fail"], "danger");
+        unset($_SESSION["Landlord_delete_fail"]);
+
+
+    }
+    ?>
+    <?php
+    if (isset($_SESSION["Landlord_edit"])) {
+
+        showMessage($_SESSION["Landlord_edit"], "success");
+        unset($_SESSION["Landlord_edit"]);
+
+
+
+    }
+    ?>
+    <?php
+    if (isset($_SESSION["Landlord_edit_fail"])) {
+
+        showMessage($_SESSION["Landlord_edit_fail"], "danger");
+        unset($_SESSION["Landlord_edit_fail"]);
+
+
+    }
+    ?>
 
     <!-- Basic Layout -->
     <div class="row">
