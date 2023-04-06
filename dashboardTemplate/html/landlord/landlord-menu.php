@@ -15,6 +15,7 @@ if (isset($_SESSION["Landlord_ID"])) {
   $landlord = $result->fetch_assoc();
 }
 
+
 ?>
 
 <!DOCTYPE html>

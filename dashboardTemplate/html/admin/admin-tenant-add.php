@@ -44,7 +44,7 @@
                     <small class="text-muted float-end">Merged input group</small>
                 </div>
                 <div class="card-body">
-                    <form action="../../../PHP/admin/tenant-add.php" method="Post">
+                    <form action="../../../PHP/admin/tenant-add.php" method="Post" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label class="form-label" for="basic-icon-default-fullname">First Name</label>
                             <div class="input-group input-group-merge">
@@ -150,6 +150,10 @@
                                 $con->close();
                                 ?>
                             </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Image:</label>
+                            <input class="form-control" type="file" name="my-image">
                         </div>
 
 

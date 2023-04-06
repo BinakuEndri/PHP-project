@@ -79,7 +79,8 @@ $result = mysqli_query($con, $query);
                                     <?php echo $row['Owner_ID'] ?>
                                 </td>
                                 <td>
-                                    <?php echo $row['Owner_img'] ?>
+                                    <img src="<?php echo "../../../uploads/landlord/" . $row['Owner_img'] ?>" height="75px"
+                                        width="55px" alt="User Profile">
                                 </td>
                                 <td><strong>
                                         <?php echo $row['Owner_FirstName'] . " " . $row['Owner_LastName'] ?>

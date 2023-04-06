@@ -1,10 +1,11 @@
 <?php include 'admin-menu.php' ?>
 <?php include 'admin-navbar.php' ?>
+<?php include '../../../PHP/message.php' ?>
 
 <?php
 $con = require "../../../PHP/database.php";
 
-$query = "select * from tenant";
+$query = "select * from tenant Where";
 
 $result = mysqli_query($con, $query);
 ?>
@@ -72,7 +73,8 @@ $result = mysqli_query($con, $query);
                                     <?php echo $row['Tenant_ID'] ?>
                                 </td>
                                 <td>
-                                    <?php echo $row['Tenant_Img'] ?>
+                                    <img src="<?php echo "../../../uploads/tenant/" . $row['Tenant_Img'] ?>" height="75px"
+                                        width="55px" alt="User Profile">
                                 </td>
                                 <td><strong>
                                         <?php echo $row['Tenant_FirstName'] . " " . $row['Tenant_LastName'] ?>

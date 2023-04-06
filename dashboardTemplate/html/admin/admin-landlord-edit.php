@@ -18,6 +18,7 @@ if (isset($_POST['edit'])) {
     $email = $row["Owner_Email"];
     $city = $row["Owner_City"];
     $birthday = $row["Owner_Birthday"];
+    $img = $row["Owner_img"];
 
 }
 
@@ -39,7 +40,7 @@ if (isset($_POST['edit'])) {
                     </small>
                 </div>
                 <div class="card-body">
-                    <form action="../../../PHP/admin/landlord-edit.php" method="Post">
+                    <form action="../../../PHP/admin/landlord-edit.php" method="Post" enctype="multipart/form-data">
 
                         <div class="mb-3">
                             <label class="form-label" for="basic-icon-default-fullname">First Name</label>
@@ -103,6 +104,22 @@ if (isset($_POST['edit'])) {
                                 <input type="text" id="basic-icon-default-phone" class="form-control phone-mask"
                                     placeholder="City" aria-label="City" value="<?php echo $city ?>"
                                     aria-describedby="basic-icon-default-phone2" name="city">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-icon-default-phone">City</label>
+                            <div class=" input-group input-group-merge">
+                                <span id="basic-icon-default-phone2" class="input-group-text"><i
+                                        class="bx bx-phone"></i></span>
+                                <input type="hidden" name="img" value="<?php echo $img ?>">
+                                <input type="file" class="form-control" name="image">
+                            </div>
+                            <div>
+                                <label class="form-label" for="basic-icon-default-phone">Foto e Userit: </label>
+                                <div>
+                                    <img src="<?php echo "../../../uploads/landlord/" . $img ?>" alt="user"
+                                        height="75px" width="55px">
+                                </div>
                             </div>
                         </div>
 
