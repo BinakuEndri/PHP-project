@@ -56,17 +56,15 @@ $result = mysqli_query($con, $query);
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Image</th>
                             <th>Type</th>
                             <th>Number</th>
                             <th>City</th>
                             <th>Address</th>
-                            <th>Rooms</th>
-                            <th>Bathrooms</th>
                             <th>Size</th>
-                            <th>Kichen</th>
                             <th>Rent Amount</th>
                             <th>Owner</th>
-                            <th>Owner</th>
+                            <th>Action</th>
 
 
                         </tr>
@@ -77,6 +75,10 @@ $result = mysqli_query($con, $query);
                                 ?>
                                 <td>
                                     <?php echo $row['Property_ID'] ?>
+                                </td>
+                                <td>
+                                    <img src="<?php echo "../../../uploads/property/" . $row['Property_Cover'] ?>"
+                                        width="100px" height="75px">
                                 </td>
                                 <td>
                                     <?php echo $row['Property_Type'] ?>
@@ -92,22 +94,21 @@ $result = mysqli_query($con, $query);
                                     <?php echo $row['Property_Address'] ?>
                                 </td>
                                 <td>
-                                    <?php echo $row['Rooms'] ?>
-                                </td>
-                                <td>
-                                    <?php echo $row['Bathrooms'] ?>
-                                </td>
-                                <td>
                                     <?php echo $row['Size'] ?>
-                                </td>
-                                <td>
-                                    <?php echo $row['Kitchen'] ?>
                                 </td>
                                 <td>
                                     <?php echo $row['RentAmount'] ?>
                                 </td>
                                 <td>
-                                    <?php echo $row['Property_Owner'] ?>
+                                    <?php $owner = $row['Property_Owner'];
+                                    $query1 = "SELECT Owner_FirstName , Owner_LastName from owner WHERE Owner_ID = '$owner'";
+
+                                    $resultt = mysqli_query($con, $query1);
+
+                                    $own = $resultt->fetch_assoc();
+
+                                    ?>
+                                    <?php echo $own['Owner_FirstName'] . " " . $own['Owner_LastName'] ?>
                                 </td>
                                 <td>
                                     <div class="dropdown">

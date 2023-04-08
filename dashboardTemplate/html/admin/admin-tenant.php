@@ -5,7 +5,7 @@
 <?php
 $con = require "../../../PHP/database.php";
 
-$query = "select * from tenant Where";
+$query = "select * from tenant";
 
 $result = mysqli_query($con, $query);
 ?>
@@ -74,7 +74,7 @@ $result = mysqli_query($con, $query);
                                 </td>
                                 <td>
                                     <img src="<?php echo "../../../uploads/tenant/" . $row['Tenant_Img'] ?>" height="75px"
-                                        width="55px" alt="User Profile">
+                                        width="auto" alt="User Profile">
                                 </td>
                                 <td><strong>
                                         <?php echo $row['Tenant_FirstName'] . " " . $row['Tenant_LastName'] ?>
