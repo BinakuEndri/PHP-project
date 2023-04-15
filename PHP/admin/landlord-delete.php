@@ -1,28 +1,26 @@
 <?php
-session_start();
 $con = require "../database.php";
 
-if (isset($_POST['delete'])) {
+if (isset($_POST['edit'])) {
+
     $id = $_POST['id'];
-    $photo_query = "SELECT Owner_img from owner where Owner_ID ='$id'";
-    $res = mysqli_query($con, $photo_query);
-    $photo = $res->fetch_assoc();
-    $path = "../../uploads/landlord/" . $photo['Owner_img'];
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $city = $_POST['city'];
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $number = $_POST['number'];
+    $modifiedDate = date('y-m-d');
 
-
-    $query = "DELETE FROM owner WHERE Owner_ID ='$id' ";
+    $query = "UPDATE owner SET Owner_FirstName ='$firstname', Owner_LastName ='$lastname', Owner_Number='$number',Owner_Username='$username', Owner_City='$city',Owner_Email ='$email',Owner_ModifiedDate='$modifiedDate' WHERE Owner_ID='$id'";
     $query_run = mysqli_query($con, $query);
 
-
-
-
     if ($query_run) {
-        unlink($path);
-        $_SESSION['Landlord_delete'] = "Landlord deleted successfuly";
-        header("Location: ../../dashboardTemplate/html/admin/admin-landlord.php");
+        echo "<h1> User Edited </h1>";
+
     } else {
-        $_SESSION['Landlord_delete_fail'] = "Failed to delete ";
-        header("Location: ../../dashboardTemplate/html/admin/admin-landlord.php");
+        echo "User Not Editeds";
+
     }
 }
 
