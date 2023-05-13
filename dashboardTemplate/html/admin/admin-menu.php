@@ -150,7 +150,12 @@ if (isset($_SESSION["Admin_ID"])) {
                 <div data-i18n="Account Settings">Rent Collection</div>
               </a>
             </li>
-
+            <li class="menu-item">
+              <a href="../../../template/index.php" class="menu-link ">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">Back To home</div>
+              </a>
+            </li>
 
 
           </ul>
