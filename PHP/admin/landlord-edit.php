@@ -44,7 +44,7 @@ if (isset($_POST['edit'])) {
     $query_run = mysqli_query($con, $query);
 
     if ($query_run) {
-        $_SESSION['Landlord_edit'] = "Landlord edited successfuly: " . $img;
+        $_SESSION['Landlord_edit'] = "Landlord edited successfuly: ";
         header("Location: ../../dashboardTemplate/html/admin/admin-landlord.php");
     } else {
         $_SESSION['Landlord_edit_fail'] = "Landlord failed to edit";

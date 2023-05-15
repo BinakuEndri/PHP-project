@@ -73,8 +73,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   }
 }
 
+session_start();
 
+//include show message
 
+include "../../PHP/message.php";
 
 ?>
 
@@ -131,6 +134,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <div class="container-xxl">
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
+
+          <?php
+          if (isset($_SESSION["Register_error"])) {
+
+            showMessage($_SESSION["Register_error"], "warning");
+            unset($_SESSION["Register_error"]);
+
+          }
+          ?>
+          <?php
+          if (isset($_SESSION["Register_add"])) {
+
+            showMessage($_SESSION["Register_add"], "succesfull");
+            unset($_SESSION["Register_add"]);
+
+          }
+          ?>
+
+
           <!-- Register -->
           <div class="card">
             <div class="card-body">
@@ -227,7 +249,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
               <p class="text-center">
                 <span>New on our platform?</span>
-                <a href="auth-register-basic.html">
+                <a href="register.php">
                   <span>Create an account</span>
                 </a>
               </p>

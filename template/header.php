@@ -149,7 +149,7 @@ if (isset($_SESSION["Admin_ID"]) || isset($_SESSION["Landlord_ID"]) || isset($_S
                                 onclick=" location.replace('../dashboardTemplate/html/login.php')"
                                 data-wow-delay="0.45s">Login</button>
                             <button class="navbar-btn nav-button wow fadeInRight"
-                                onclick=" location.replace('../dashboardTemplate/html/login.php')"
+                                onclick=" location.replace('../dashboardTemplate/html/register.php')"
                                 data-wow-delay="0.48s">Register</button>
                         <?php } else { ?>
                             <button class="navbar-btn nav-button wow fadeInRight"
