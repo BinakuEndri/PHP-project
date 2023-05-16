@@ -38,6 +38,7 @@ if (isset($_SESSION["Tenant_ID"])) {
     <link
       href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
       rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="../../static/assets/vendor/fonts/boxicons.css" />
@@ -69,7 +70,7 @@ if (isset($_SESSION["Tenant_ID"])) {
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="index.html" class="app-brand-link">
+            <a href="tenant-dashboard.php" class="app-brand-link">
 
               <span class="app-brand-text demo menu-text fw-bolder ms-2">Tenant</span>
             </a>
@@ -83,8 +84,8 @@ if (isset($_SESSION["Tenant_ID"])) {
 
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item active">
-              <a href="index.html" class="menu-link">
+            <li class="menu-item">
+              <a href="tenant-dashboard.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
@@ -126,19 +127,11 @@ if (isset($_SESSION["Tenant_ID"])) {
               <span class="menu-header-text">Managment</span>
             </li>
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link ">
+              <a href="complain.php" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Compains</div>
+                <div data-i18n="Account Settings">Compain</div>
               </a>
             </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link ">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Rent Collection</div>
-              </a>
-            </li>
-
-
 
           </ul>
         </aside>

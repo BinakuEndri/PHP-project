@@ -29,7 +29,10 @@
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                        <img src="<?php echo "../../../uploads/tenant/" . $tnenat['Tenant_Img'] ?>" alt </div>
+                        <img src="<?php echo "../../../uploads/tenant/" . $tenant['Tenant_Img'] ?>" alt
+                            class="w-px-40 h-auto rounded-circle" />
+
+                    </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
@@ -37,7 +40,7 @@
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
-                                        <img src="<?php echo "../../../uploads/tenant/" . $tnenat['Tenant_Img'] ?>" alt
+                                        <img src="<?php echo "../../../uploads/tenant/" . $tenant['Tenant_Img'] ?>" alt
                                             class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                 </div>
@@ -54,7 +57,7 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="tenant-editprofile.php">
                             <i class="bx bx-user me-2"></i>
                             <span class="align-middle">My Profile</span>
                         </a>
