@@ -52,6 +52,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
           session_start();
 
           session_regenerate_id();
+          if (isset($_POST["rememberMe"])) {
+            setcookie("landlord_username", $_POST["username"], time() + 60 * 60 * 24 * 30);
+            setcookie("landlord_password", $_POST["password"], time() + 60 * 60 * 24 * 30);
+
+            setcookie("tenant_username", $_POST["username"], time() - 60 * 60 * 24 * 30);
+            setcookie("tenant_password", $_POST["password"], time() - 60 * 60 * 24 * 30);
+
+
+            setcookie("admin_username", $_POST["username"], time() - 60 * 60 * 24 * 30);
+            setcookie("admin_password", $_POST["password"], time() - 60 * 60 * 24 * 30);
+
+          } else {
+            setcookie("landlord_username", $_POST["username"], time() - 60 * 60 * 24 * 30);
+            setcookie("landlord_username", $_POST["username"], time() - 60 * 60 * 24 * 30);
+
+          }
           $_SESSION["Landlord_ID"] = $landlord["Owner_ID"];
 
           header("Location: landlord/landlord-dashboard.php");
@@ -71,6 +87,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (password_verify($_POST["password"], $tenant["Tenant_Password"])) {
           session_start();
 
+          if (isset($_POST["rememberMe"])) {
+            setcookie("tenant_username", $_POST["username"], time() + 60 * 60 * 24 * 30);
+            setcookie("tenant_password", $_POST["password"], time() + 60 * 60 * 24 * 30);
+
+            setcookie("landlord_username", $_POST["username"], time() - 60 * 60 * 24 * 30);
+            setcookie("landlord_username", $_POST["username"], time() - 60 * 60 * 24 * 30);
+
+            setcookie("admin_username", $_POST["username"], time() - 60 * 60 * 24 * 30);
+            setcookie("admin_password", $_POST["password"], time() - 60 * 60 * 24 * 30);
+
+
+          } else {
+            setcookie("tenant_username", $_POST["username"], time() - 60 * 60 * 24 * 30);
+            setcookie("tenant_password", $_POST["password"], time() - 60 * 60 * 24 * 30);
+          }
+
           $_SESSION["Tenant_ID"] = $tenant["Tenant_ID"];
           header("Location: tenant/tenant-dashboard.php");
           exit();
@@ -89,6 +121,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (password_verify($_POST["password"], $admin["Admin_Password"])) {
           session_start();
 
+
+          if (isset($_POST["rememberMe"])) {
+
+            setcookie("admin_username", $_POST["username"], time() + 60 * 60 * 24 * 30);
+            setcookie("admin_password", $_POST["password"], time() + 60 * 60 * 24 * 30);
+
+            setcookie("landlord_username", $_POST["username"], time() - 60 * 60 * 24 * 30);
+            setcookie("landlord_username", $_POST["username"], time() - 60 * 60 * 24 * 30);
+
+            setcookie("tenant_username", $_POST["username"], time() - 60 * 60 * 24 * 30);
+            setcookie("tenant_password", $_POST["password"], time() - 60 * 60 * 24 * 30);
+
+          } else {
+            setcookie("admin_username", $_POST["username"], time() - 60 * 60 * 24 * 30);
+            setcookie("admin_password", $_POST["password"], time() - 60 * 60 * 24 * 30);
+          }
           session_regenerate_id();
           $_SESSION["Admin_ID"] = $admin["Admin_ID"];
 
@@ -128,6 +176,27 @@ session_start();
 
 include "../../PHP/message.php";
 
+
+if (isset($_COOKIE["landlord_username"]) && isset($_COOKIE["landlord_password"])) {
+
+  $username = $_COOKIE["landlord_username"];
+
+  $password = $_COOKIE["landlord_password"];
+
+} else if (isset($_COOKIE["tenant_username"]) && isset($_COOKIE["tenant_password"])) {
+  $username = $_COOKIE["tenant_username"];
+
+  $password = $_COOKIE["tenant_password"];
+} else if (isset($_COOKIE["admin_username"]) && isset($_COOKIE["admin_password"])) {
+
+  $username = $_COOKIE["admin_username"];
+
+  $password = $_COOKIE["admin_password"];
+
+} else {
+  $username = "";
+  $password = "";
+}
 ?>
 
 <!DOCTYPE html>
@@ -292,8 +361,8 @@ include "../../PHP/message.php";
               <form id="formAuthentication" class="mb-3" method="POST">
                 <div class="mb-3">
                   <label for="email" class="form-label">Username</label>
-                  <input type="text" class="form-control" id="email" name="username" placeholder="Enter your username"
-                    autofocus />
+                  <input type="text" class="form-control" id="email" name="username" placeholder="Enter your username "
+                    autofocus value="<?= $username ?>" />
                 </div>
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
@@ -305,13 +374,13 @@ include "../../PHP/message.php";
                   <div class="input-group input-group-merge">
                     <input type="password" id="password" class="form-control" name="password"
                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                      aria-describedby="password" />
+                      aria-describedby="password" value="<?= $password ?>" />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
                 </div>
                 <div class="mb-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="remember-me" />
+                    <input class="form-check-input" type="checkbox" id="remember-me" name="rememberMe" />
                     <label class="form-check-label" for="remember-me">
                       Remember Me
                     </label>

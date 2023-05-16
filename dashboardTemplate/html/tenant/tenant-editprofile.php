@@ -67,6 +67,14 @@ $img_path = "../../../uploads/tenant/" . $image;
 
     }
     ?>
+    <?php
+    if (isset($_SESSION["Password_edit"])) {
+
+        showMessage($_SESSION["Password_edit"], "danger");
+        unset($_SESSION["Password_edit"]);
+
+    }
+    ?>
 
     <div class="row">
         <div class="col-md-12">
@@ -133,6 +141,12 @@ $img_path = "../../../uploads/tenant/" . $image;
                                     <label for="city" class="form-label">City</label>
                                     <input type="text" class="form-control" id="city" name="city"
                                         placeholder="City" value="<?=$city?>">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <button type="button" onclick="changeLocation()" id="changePassword"class="btn btn-primary me-2" name="edit">Change Password</button>
                                 </div>
 
                             </div>
@@ -208,6 +222,10 @@ $img_path = "../../../uploads/tenant/" . $image;
         email.value = "<?=$email?>";
         phoneNumber.value = "<?=$phone?>"; // Updated ID
         city.value = "<?=$city?>";
+    }
+
+    function changeLocation(){
+        location.replace("change-password.php");
     }
 </script>
 

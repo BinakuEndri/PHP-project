@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
     $selector = bin2hex(random_bytes(8));
     $token = random_bytes(32);
 
-    $url = "localhost/PHP-project/dashboardTemplate/html/createNewPassword.php?selector=" . $selector . "&validator=" . bin2hex($token);
+    $url = "localhost/ProjektiWeb/PHP-project/dashboardTemplate/html/createNewPassword.php?selector=" . $selector . "&validator=" . bin2hex($token);
 
     $expires = date("U") + 1800;
 
@@ -38,7 +38,7 @@ if (isset($_POST['submit'])) {
     mysqli_stmt_close($stmt);
     mysqli_close($con);
 
-    require_once('../../API/vendor/autoload.php');
+    require_once('../API/vendor/autoload.php');
 
     include_once 'api/templateForgotPassword.php';
 
@@ -81,7 +81,7 @@ if (isset($_POST['submit'])) {
     }
 
 } else {
-    //
+    die("Wait");
 }
 
 
