@@ -57,17 +57,17 @@ $resultt = mysqli_query($con, $queryy);
                                 <div class="input-group input-group-merge">
                                     <input type="text" class="form-control" id="basic-icon-default-fullname"
                                         placeholder="<?= $landlord_name ?>" aria-label="<?= $landlord_name ?>"
-                                        aria-describedby="basic-icon-default-fullname2" name="tenantName"
+                                        aria-describedby="basic-icon-default-fullname2" name="landlordId"
                                         value="<?= $landlord_name ?>" readonly>
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Landlord
+                            <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Tenant
                                 Name</label>
                             <div class="col-sm-10">
 
-                                <select id="defaultSelect" class="form-select" name="property">
+                                <select id="defaultSelect" class="form-select" name="tenatId">
                                     <?php
                                     while ($tenant = mysqli_fetch_assoc($resultt)) {
 
@@ -103,8 +103,8 @@ $resultt = mysqli_query($con, $queryy);
                             <div class="col-sm-10">
                                 <div class="input-group input-group-merge">
                                     <textarea id="basic-icon-default-message" class="form-control"
-                                        placeholder="Hi, Do you have a something to talk to <?= $landlord_name ?>"
-                                        aria-label="Hi, Do you have a something to talk to <?= $landlord_name ?>"
+                                        placeholder="Hi, Do you have a something to talk to <?= $tenant_name ?>"
+                                        aria-label="Hi, Do you have a something to talk to <?= $tenant_name ?>"
                                         aria-describedby="basic-icon-default-message2" name="message"></textarea>
                                 </div>
                             </div>
@@ -230,24 +230,63 @@ $resultt = mysqli_query($con, $queryy);
     </div>
 
 </div>
-<?php
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $id = $_POST["id"];
-    $complainQuery = "select * from complains where ID = '$id' ";
-    $complainResultt = mysqli_query($con, $complainQuery);
-    $complainn = mysqli_fetch_assoc($complainResultt);
 
-}
-?>
 <script>
-    function setDataToFields() {
-        var tittle = "<?= $complainn['Title'] ?>";
-        var message = "<?= $complainn['Message'] ?>";
-        var id = "<?= $complainn['ID'] ?>";
+    $(document).ready(function () {
+        $('#buttonId').click(function () {
+            setDataToTittle();
+            changeAddButton();
+        });
 
-        document.getElementById("basic-icon-default-tittle").value = tittle;
-        document.getElementById("basic-icon-default-message").value = message;
-    }
+        function setDataToTittle() {
+            var id = document.getElementById("complainId").value;
+            $.ajax({
+                url: "../../../PHP/tenant/complainData.php",
+                method: "POST",
+                data: { id: id },
+                success: function (data) {
+                    var values = JSON.parse(data);
+                    $('#basic-icon-default-tittle').val(values.input1);
+                    $('#basic-icon-default-message').val(values.input2);
+                }
+            })
+        }
+
+        function changeAddButton() {
+            var button = document.getElementById("sendButton");
+            button.innerHTML = "Update";
+            var div1 = document.getElementById("div1");
+            var div2 = document.getElementById("div2");
+            div1.classList.remove("col-sm-10");
+            div1.classList.add("col-sm-3");
+            div2.removeAttribute("hidden");
+            var input = document.getElementById("inputId");
+            input.value = document.getElementById("complainId").value;
+
+            var form = document.getElementById("form");
+            form.action = "../../../PHP/tenant/complain-update.php";
+        }
+        $('#backToSend').click(function () {
+
+            var button = document.getElementById("sendButton");
+
+            button.innerHTML = "Send";
+            var div1 = document.getElementById("div1");
+            var div2 = document.getElementById("div2");
+            div1.classList.remove("col-sm-3");
+            div1.classList.add("col-sm-10");
+            div2.setAttribute("hidden", "true");
+
+            var input = document.getElementById("inputId");
+            input.value = "";
+
+            var form = document.getElementById("form");
+            form.action = "../../../PHP/tenant/complain.php";
+            $('#basic-icon-default-tittle').val("");
+            $('#basic-icon-default-message').val("");
+        });
+    });
+
 
 
 </script>
