@@ -191,7 +191,7 @@ function getMostProfitFromTenants($con, $id)
 function countComplains($con, $id)
 {
 
-    $query = "SELECT COUNT(*) as complains FROM complains c Where Landlord_ID = '$id'";
+    $query = "SELECT COUNT(*) as complains FROM complains c Where Reciver_ID = '$id'";
 
     $result = mysqli_query($con, $query);
 
@@ -209,7 +209,7 @@ function complainsGrowthMonthly($con, $id)
         $month = "-";
     }
     $date = date('Y') . $month . idate('m') . "-01";
-    $query = "select COUNT(*) as complains from complains where Date > '$date' and Landlord_ID = '$id'";
+    $query = "select COUNT(*) as complains from complains where Date > '$date' and Reciver_ID = '$id'";
 
     $result = mysqli_query($con, $query);
 

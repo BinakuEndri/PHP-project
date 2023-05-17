@@ -16,6 +16,7 @@ if (isset($_SESSION["Landlord_ID"])) {
 }
 
 
+
 ?>
 
 <!DOCTYPE html>
@@ -52,6 +53,8 @@ if (isset($_SESSION["Landlord_ID"])) {
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../static/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
 
     <!-- Page CSS -->
 
@@ -128,15 +131,15 @@ if (isset($_SESSION["Landlord_ID"])) {
               <span class="menu-header-text">Managment</span>
             </li>
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link ">
+              <a href="complains.php" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Compains</div>
+                <div data-i18n="Account Settings">Complains to you</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link ">
+              <a href="landlord-complain.php" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Rent Collection</div>
+                <div data-i18n="Account Settings">Write A Complain</div>
               </a>
             </li>
 

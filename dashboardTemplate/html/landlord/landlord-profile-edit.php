@@ -75,7 +75,7 @@ $img_path = "../../../uploads/landlord/" . $image;
                     <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Account</a>
                 </li>
             </ul>
-            <form method="POST" action="../../../PHP/tenant/edit-profile.php" enctype="multipart/form-data">  
+            <form method="POST" action="../../../PHP/landlord/edit-profile.php" enctype="multipart/form-data">  
                 <div class="card mb-4">
                     <h5 class="card-header">Profile Details</h5>
                     <!-- Account -->

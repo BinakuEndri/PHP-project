@@ -40,6 +40,23 @@ $resultt = mysqli_query($con, $queryy);
 
         }
         ?>
+        <?php
+        if (isset($_SESSION["Complain_edit"])) {
+            showMessage($_SESSION["Complain_edit"], "success");
+            unset($_SESSION["Complain_edit"]);
+
+
+        }
+        ?>
+        <?php
+        if (isset($_SESSION["Complain_edit_fail"])) {
+
+            showMessage($_SESSION["Complain_edit_fail"], "warning");
+            unset($_SESSION["Complain_edit_fail"]);
+
+        }
+        ?>
+
 
         <!-- Basic with Icons -->
         <div class="col-8">
@@ -49,15 +66,15 @@ $resultt = mysqli_query($con, $queryy);
                     <small class="text-muted float-end">Merged input group</small>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="../../../PHP/tenant/complain.php">
+                    <form method="POST" action="../../../PHP/landlord/complain.php" id="form">
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Your Name</label>
                             <div class="col-sm-10">
-                                <input type="hidden" name="tenantId" value="<?= $landlord_id ?>">
+                                <input type="hidden" name="landlordId" value="<?= $landlord_id ?>">
                                 <div class="input-group input-group-merge">
                                     <input type="text" class="form-control" id="basic-icon-default-fullname"
                                         placeholder="<?= $landlord_name ?>" aria-label="<?= $landlord_name ?>"
-                                        aria-describedby="basic-icon-default-fullname2" name="landlordId"
+                                        aria-describedby="basic-icon-default-fullname2" name="landlordName"
                                         value="<?= $landlord_name ?>" readonly>
                                 </div>
                             </div>
@@ -67,7 +84,7 @@ $resultt = mysqli_query($con, $queryy);
                                 Name</label>
                             <div class="col-sm-10">
 
-                                <select id="defaultSelect" class="form-select" name="tenatId">
+                                <select id="defaultSelect" class="form-select" name="tenantId">
                                     <?php
                                     while ($tenant = mysqli_fetch_assoc($resultt)) {
 
@@ -109,9 +126,16 @@ $resultt = mysqli_query($con, $queryy);
                                 </div>
                             </div>
                         </div>
-                        <div class="row justify-content-end">
-                            <div class="col-sm-10">
-                                <button type="submit" class="btn btn-primary">Send</button>
+                        <div class="row justify-content-end align-items-center">
+                            <div class="col-sm-10" id="div1">
+                                <input type="hidden" name="id" id="inputId" value="">
+                                <button type="submit" id="sendButton" name="sendButton"
+                                    class="btn btn-primary">Send</button>
+
+                            </div>
+                            <div class="col-sm-7" id="div2" hidden="true">
+                                <span class="badge bg-label-danger me-1" id="backToSend" style="cursor: pointer">
+                                    Back to send</span>
                             </div>
                         </div>
                     </form>
@@ -122,7 +146,7 @@ $resultt = mysqli_query($con, $queryy);
 
     <?php
 
-    $complainsQuery = "select * from complains where Tenant_ID = '$tenant_id' ";
+    $complainsQuery = "select * from complains where Sender_ID = '$landlord_id' ";
     $complainsResult = mysqli_query($con, $complainsQuery);
 
 
@@ -134,7 +158,7 @@ $resultt = mysqli_query($con, $queryy);
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Landlord Image</th>
+                        <th>Sender/Reciver</th>
                         <th>Title</th>
                         <th>Message</th>
                         <th>Date Sent</th>
@@ -152,8 +176,17 @@ $resultt = mysqli_query($con, $queryy);
                         $complain_response = $complain["Reply"];
                         $complain_date = $complain["Date"];
                         $complain_response_date = $complain["Reply_Date"];
+                        $complain_tenant_Id = $complain["Reciver_ID"];
 
                         $message = substr($complain_message, 0, 10) . "...";
+
+                        $query = "Select * from tenant where Tenant_ID = '$complain_tenant_Id'";
+                        $result = mysqli_query($con, $query);
+                        $tenant = mysqli_fetch_assoc($result);
+
+                        $tenant_id = $tenant["Tenant_ID"];
+                        $tenant_name = $tenant["Tenant_FirstName"] . " " . $tenant["Tenant_LastName"];
+                        $tenant_img = $tenant["Tenant_Img"];
 
                         ?>
 
@@ -207,12 +240,9 @@ $resultt = mysqli_query($con, $queryy);
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <form method="POST">
-                                            <input type="hidden" name="id" value="<?= $complain_id ?>">
-                                            <button type="submit" onclick="setDataToFields()"
-                                                class="btn btn-outline-info dropdown-item" name="edit"><i
-                                                    class="bx bx-edit-alt me-1"></i>Edit</button>
-                                        </form>
+                                        <input type="hidden" name="id" id="complainId" value="<?= $complain_id ?>">
+                                        <button type="button" id="buttonId" class="btn btn-outline-info dropdown-item"
+                                            name="edit"><i class="bx bx-edit-alt me-1"></i>Edit</button>
                                         <form action="../../../PHP/admin/landlord-delete.php" method="POST">
                                             <input type="hidden" name="id" value="<?= $complain_id ?>">
                                             <button type="submit" class="btn btn-outline-secondary dropdown-item"
@@ -241,7 +271,7 @@ $resultt = mysqli_query($con, $queryy);
         function setDataToTittle() {
             var id = document.getElementById("complainId").value;
             $.ajax({
-                url: "../../../PHP/tenant/complainData.php",
+                url: "../../../PHP/landlord/complainData.php",
                 method: "POST",
                 data: { id: id },
                 success: function (data) {
@@ -264,7 +294,7 @@ $resultt = mysqli_query($con, $queryy);
             input.value = document.getElementById("complainId").value;
 
             var form = document.getElementById("form");
-            form.action = "../../../PHP/tenant/complain-update.php";
+            form.action = "../../../PHP/landlord/complain-update.php";
         }
         $('#backToSend').click(function () {
 
@@ -281,7 +311,7 @@ $resultt = mysqli_query($con, $queryy);
             input.value = "";
 
             var form = document.getElementById("form");
-            form.action = "../../../PHP/tenant/complain.php";
+            form.action = "../../../PHP/landlord/complain.php";
             $('#basic-icon-default-tittle').val("");
             $('#basic-icon-default-message').val("");
         });
@@ -290,4 +320,4 @@ $resultt = mysqli_query($con, $queryy);
 
 
 </script>
-<?php include 'tenant-footer.php' ?>
+<?php include 'landlord-footer.php' ?>

@@ -127,7 +127,7 @@ $landlord_img = $landlord['Owner_img'];
 
     <?php
 
-    $complainsQuery = "select * from complains where Tenant_ID = '$tenant_id' ";
+    $complainsQuery = "select * from complains where Sender_ID = '$tenant_id' ";
     $complainsResult = mysqli_query($con, $complainsQuery);
 
 
@@ -139,7 +139,7 @@ $landlord_img = $landlord['Owner_img'];
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Landlord Image</th>
+                        <th>Sender/Reciver</th>
                         <th>Title</th>
                         <th>Message</th>
                         <th>Date Sent</th>
@@ -166,15 +166,16 @@ $landlord_img = $landlord['Owner_img'];
                             <td>
                                 <ul class="list-unstyled m-0 d-flex align-items-center">
                                     <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                                        class="avatar pull-up" title="" data-bs-original-title="<?= $landlord_name ?>">
-                                        <img src="../../../uploads/landlord/<?= $landlord_img ?>" alt="Avatar"
-                                            class="rounded-circle">
-                                    </li>
-                                    <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
                                         class="avatar pull-up" title="" data-bs-original-title="<?= $tenant_name ?>">
                                         <img src="../../../uploads/tenant/<?= $tenant_img ?>" alt="Avatar"
                                             class="rounded-circle">
                                     </li>
+                                    <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
+                                        class="avatar pull-up" title="" data-bs-original-title="<?= $landlord_name ?>">
+                                        <img src="../../../uploads/landlord/<?= $landlord_img ?>" alt="Avatar"
+                                            class="rounded-circle">
+                                    </li>
+
 
                                 </ul>
                             </td>

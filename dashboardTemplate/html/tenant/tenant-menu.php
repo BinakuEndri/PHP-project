@@ -129,7 +129,13 @@ if (isset($_SESSION["Tenant_ID"])) {
             <li class="menu-item">
               <a href="complain.php" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Compain</div>
+                <div data-i18n="Account Settings">Write A Complain</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="complainsTenant.php" class="menu-link ">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">Complains For You</div>
               </a>
             </li>
 
