@@ -3,10 +3,14 @@
 
 $con = require "../PHP/database.php";
 
-$query = "select * from property";
 
 
-$result = mysqli_query($con, $query);
+
+$property = require '../PHP/properties/property.php';
+
+
+$properties = $property->getAllProperties();
+$cities = $property->getAllCitiesFromProperties();
 ?>
 
 <div class="slider-area">
@@ -36,13 +40,12 @@ $result = mysqli_query($con, $query);
                         <div class="form-group">
                             <select id="lunchBegins" class="selectpicker" data-live-search="true"
                                 data-live-search-style="begins" title="Select your city">
+                                <?php foreach ($cities as $city) { ?>
+                                    <option>
+                                        <?= $city['Property_City'] ?>
+                                    </option>
+                                <?php } ?>
 
-                                <option>New york, CA</option>
-                                <option>Paris</option>
-                                <option>Casablanca</option>
-                                <option>Tokyo</option>
-                                <option>Marraekch</option>
-                                <option>kyoto , shibua</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -61,20 +64,21 @@ $result = mysqli_query($con, $query);
                             <div class="search-row">
 
                                 <div class="form-group mar-r-20">
-                                    <label for="price-range">Price range ($):</label>
-                                    <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600"
-                                        data-slider-step="5" data-slider-value="[0,450]" id="price-range"><br />
-                                    <b class="pull-left color">2000$</b>
-                                    <b class="pull-right color">100000$</b>
+                                    <label for="price-range">Price range (€):</label>
+                                    <input type="text" class="span2" value="" data-slider-min="100"
+                                        data-slider-max="1000" data-slider-step="20" data-slider-value="[100,450]"
+                                        id="price-range"><br />
+                                    <b class="pull-left color">100€</b>
+                                    <b class="pull-right color">1000€</b>
                                 </div>
                                 <!-- End of  -->
 
                                 <div class="form-group mar-l-20">
                                     <label for="property-geo">Property geo (m2) :</label>
-                                    <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600"
-                                        data-slider-step="5" data-slider-value="[50,450]" id="property-geo"><br />
-                                    <b class="pull-left color">40m</b>
-                                    <b class="pull-right color">12000m</b>
+                                    <input type="text" class="span2" value="" data-slider-min="40" data-slider-max="500"
+                                        data-slider-step="10" data-slider-value="[40,200]" id="property-geo"><br />
+                                    <b class="pull-left color">40m²</b>
+                                    <b class="pull-right color">500m²</b>
                                 </div>
                                 <!-- End of  -->
                             </div>
@@ -83,115 +87,24 @@ $result = mysqli_query($con, $query);
 
                                 <div class="form-group mar-r-20">
                                     <label for="price-range">Min baths :</label>
-                                    <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600"
-                                        data-slider-step="5" data-slider-value="[250,450]" id="min-baths"><br />
+                                    <input type="text" class="span2" value="" data-slider-min="1" data-slider-max="6"
+                                        data-slider-step="1" data-slider-value="[1,2]" id="min-baths"><br />
                                     <b class="pull-left color">1</b>
-                                    <b class="pull-right color">120</b>
+                                    <b class="pull-right color">6</b>
                                 </div>
                                 <!-- End of  -->
 
                                 <div class="form-group mar-l-20">
                                     <label for="property-geo">Min bed :</label>
-                                    <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600"
-                                        data-slider-step="5" data-slider-value="[250,450]" id="min-bed"><br />
+                                    <input type="text" class="span2" value="" data-slider-min="1" data-slider-max="10"
+                                        data-slider-step="1" data-slider-value="[1,3]" id="min-bed"><br />
                                     <b class="pull-left color">1</b>
-                                    <b class="pull-right color">120</b>
+                                    <b class="pull-right color">10</b>
                                 </div>
                                 <!-- End of  -->
 
                             </div>
                             <br>
-                            <div class="search-row">
-
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Fire Place(3100)
-                                        </label>
-                                    </div>
-                                </div>
-                                <!-- End of  -->
-
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Dual Sinks(500)
-                                        </label>
-                                    </div>
-                                </div>
-                                <!-- End of  -->
-
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Hurricane Shutters(99)
-                                        </label>
-                                    </div>
-                                </div>
-                                <!-- End of  -->
-                            </div>
-
-                            <div class="search-row">
-
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Swimming Pool(1190)
-                                        </label>
-                                    </div>
-                                </div>
-                                <!-- End of  -->
-
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> 2 Stories(4600)
-                                        </label>
-                                    </div>
-                                </div>
-                                <!-- End of  -->
-
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Emergency Exit(200)
-                                        </label>
-                                    </div>
-                                </div>
-                                <!-- End of  -->
-                            </div>
-
-                            <div class="search-row">
-
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Laundry Room(10073)
-                                        </label>
-                                    </div>
-                                </div>
-                                <!-- End of  -->
-
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Jog Path(1503)
-                                        </label>
-                                    </div>
-                                </div>
-                                <!-- End of  -->
-
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> 26' Ceilings(1200)
-                                        </label>
-                                    </div>
-                                </div>
-                                <!-- End of  -->
-                                <br>
-                                <hr>
-                            </div>
                             <button class="btn search-btn prop-btm-sheaerch" type="submit"><i
                                     class="fa fa-search"></i></button>
                         </div>
@@ -218,7 +131,7 @@ $result = mysqli_query($con, $query);
         <div class="row">
             <div class="proerty-th">
                 <?php
-                while ($row = mysqli_fetch_assoc($result)) {
+                foreach ($properties as $row) {
                     $id = $row['Property_ID'];
                     $number = $row['Property_Number'];
                     $type = $row['Property_Type'];

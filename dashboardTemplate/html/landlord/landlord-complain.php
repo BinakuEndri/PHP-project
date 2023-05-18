@@ -59,13 +59,13 @@ $resultt = mysqli_query($con, $queryy);
 
 
         <!-- Basic with Icons -->
-        <div class="col-8">
+        <div class="col-8" id="mainDiv">
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-center justify-content-between">
                     <h5 class="mb-0">Basic with Icons</h5>
                     <small class="text-muted float-end">Merged input group</small>
                 </div>
-                <div class="card-body">
+                <div class="card-body" id="theForm">
                     <form method="POST" action="../../../PHP/landlord/complain.php" id="form">
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Your Name</label>
@@ -140,6 +140,8 @@ $resultt = mysqli_query($con, $queryy);
                         </div>
                     </form>
                 </div>
+
+
             </div>
         </div>
     </div>
@@ -221,7 +223,14 @@ $resultt = mysqli_query($con, $queryy);
                                     $var = "-success";
                                 else
                                     $var = "-danger"; ?>
-                                <span class="badge bg-label<?= $var ?> me-1">
+                                <span class="badge bg-label<?= $var ?> me-1" id="getResponse" 
+                                    <?php if ($complain_response != null) {?>
+
+                                        onclick="getResponse(this)"
+                                        value="<?= $complain_id ?>" style="cursor: pointer"
+                                    <?php } ?>
+
+                                    >
 
 
                                     <?php if ($complain_response != null)
@@ -234,23 +243,28 @@ $resultt = mysqli_query($con, $queryy);
                                 <?= $complain_response_date ?>
                             </td>
                             <td>
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <input type="hidden" name="id" id="complainId" value="<?= $complain_id ?>">
-                                        <button type="button" id="buttonId" class="btn btn-outline-info dropdown-item"
-                                            name="edit"><i class="bx bx-edit-alt me-1"></i>Edit</button>
-                                        <form action="../../../PHP/admin/landlord-delete.php" method="POST">
-                                            <input type="hidden" name="id" value="<?= $complain_id ?>">
-                                            <button type="submit" class="btn btn-outline-secondary dropdown-item"
-                                                name="delete"><i class="bx bx-trash me-1"></i>Delete</button>
-                                        </form>
+                                <?php if ($complain_response == null) { ?>
 
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                            data-bs-toggle="dropdown">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <input type="hidden" name="id" id="complainId" value="<?= $complain_id ?>">
+                                            <button type="button" id="buttonId" onclick="editButton(this)"
+                                                value="<?= $complain_id ?>" class="btn btn-outline-info dropdown-item"
+                                                name="edit"><i class="bx bx-edit-alt me-1"></i>Edit</button>
+                                            <form action="../../../PHP/admin/landlord-delete.php" method="POST">
+                                                <input type="hidden" name="id" value="<?= $complain_id ?>">
+                                                <button type="submit" class="btn btn-outline-secondary dropdown-item"
+                                                    name="delete"><i class="bx bx-trash me-1"></i>Delete</button>
+                                            </form>
+
+                                        </div>
                                     </div>
-                                </div>
+                                <?php } ?>
+
                             </td>
                         </tr>
                     <?php } ?>
@@ -263,39 +277,7 @@ $resultt = mysqli_query($con, $queryy);
 
 <script>
     $(document).ready(function () {
-        $('#buttonId').click(function () {
-            setDataToTittle();
-            changeAddButton();
-        });
 
-        function setDataToTittle() {
-            var id = document.getElementById("complainId").value;
-            $.ajax({
-                url: "../../../PHP/landlord/complainData.php",
-                method: "POST",
-                data: { id: id },
-                success: function (data) {
-                    var values = JSON.parse(data);
-                    $('#basic-icon-default-tittle').val(values.input1);
-                    $('#basic-icon-default-message').val(values.input2);
-                }
-            })
-        }
-
-        function changeAddButton() {
-            var button = document.getElementById("sendButton");
-            button.innerHTML = "Update";
-            var div1 = document.getElementById("div1");
-            var div2 = document.getElementById("div2");
-            div1.classList.remove("col-sm-10");
-            div1.classList.add("col-sm-3");
-            div2.removeAttribute("hidden");
-            var input = document.getElementById("inputId");
-            input.value = document.getElementById("complainId").value;
-
-            var form = document.getElementById("form");
-            form.action = "../../../PHP/landlord/complain-update.php";
-        }
         $('#backToSend').click(function () {
 
             var button = document.getElementById("sendButton");
@@ -316,6 +298,57 @@ $resultt = mysqli_query($con, $queryy);
             $('#basic-icon-default-message').val("");
         });
     });
+    function editButton(element) {
+        var id = element.getAttribute("value");
+        setDataToTittle(id);
+        changeAddButton();
+    }
+    function setDataToTittle(id) {
+        var id = id;
+        $.ajax({
+            url: "../../../PHP/landlord/complainData.php",
+            method: "POST",
+            data: { id: id },
+            success: function (data) {
+                var values = JSON.parse(data);
+                $("theForm").show();
+                $('#basic-icon-default-tittle').val(values.input1);
+                $('#basic-icon-default-message').val(values.input2);
+            }
+        })
+    }
+
+    function changeAddButton() {
+        var button = document.getElementById("sendButton");
+        button.innerHTML = "Update";
+        var div1 = document.getElementById("div1");
+        var div2 = document.getElementById("div2");
+        div1.classList.remove("col-sm-10");
+        div1.classList.add("col-sm-3");
+        div2.removeAttribute("hidden");
+        var input = document.getElementById("inputId");
+        input.value = document.getElementById("complainId").value;
+
+        var form = document.getElementById("form");
+        form.action = "../../../PHP/landlord/complain-update.php";
+    }
+
+    function getResponse(element) {
+        var id = element.getAttribute("value");
+
+        $.ajax({
+            url: "../../../PHP/landlord/complainData.php",
+            method: "POST",
+            data: { idd: id },
+            success: function (data) {
+                $("#mainDiv").html(data);
+
+                $("theForm").hide;
+
+            }
+        });
+
+    }
 
 
 

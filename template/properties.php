@@ -37,7 +37,7 @@ $cities = $property->getAllCitiesFromProperties();
                                 <fieldset>
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <input type="text" class="form-control" placeholder="Key word">
+                                            <input type="text" class="form-control" placeholder="Key word" id="keyword">
                                         </div>
                                     </div>
                                 </fieldset>
@@ -73,20 +73,20 @@ $cities = $property->getAllCitiesFromProperties();
                                 <fieldset class="padding-5">
                                     <div class="row">
                                         <div class="col-xs-6">
-                                            <label for="price-range">Price range ($):</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0"
-                                                data-slider-max="600" data-slider-step="5" data-slider-value="[0,450]"
-                                                id="price-range"><br />
-                                            <b class="pull-left color">2000$</b>
-                                            <b class="pull-right color">100000$</b>
+                                            <label for="price-range">Price range (€):</label>
+                                            <input type="text" class="span2" value="" data-slider-min="100"
+                                                data-slider-max="1000" data-slider-step="10"
+                                                data-slider-value="[100,500]" id="price-range"><br />
+                                            <b class="pull-left color">100€</b>
+                                            <b class="pull-right color">1000€</b>
                                         </div>
                                         <div class="col-xs-6">
-                                            <label for="property-geo">Property geo (m2) :</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0"
-                                                data-slider-max="600" data-slider-step="5" data-slider-value="[50,450]"
+                                            <label for="property-geo">Property size (m2) :</label>
+                                            <input type="text" class="span2" value="" data-slider-min="40"
+                                                data-slider-max="500" data-slider-step="10" data-slider-value="[40,300]"
                                                 id="property-geo"><br />
-                                            <b class="pull-left color">40m</b>
-                                            <b class="pull-right color">12000m</b>
+                                            <b class="pull-left color">40m²</b>
+                                            <b class="pull-right color">500m²</b>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -102,6 +102,7 @@ $cities = $property->getAllCitiesFromProperties();
                                             <b class="pull-right color">120</b>
                                         </div>
 
+
                                         <div class="col-xs-6">
                                             <label for="property-geo">Min bed :</label>
                                             <input type="text" class="span2" value="" data-slider-min="0"
@@ -113,78 +114,6 @@ $cities = $property->getAllCitiesFromProperties();
                                         </div>
                                     </div>
                                 </fieldset>
-
-                                <fieldset class="padding-5">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <div class="checkbox">
-                                                <label> <input type="checkbox" checked> Fire Place</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6">
-                                            <div class="checkbox">
-                                                <label> <input type="checkbox"> Dual Sinks</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-
-                                <fieldset class="padding-5">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <div class="checkbox">
-                                                <label> <input type="checkbox" checked> Swimming Pool</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <div class="checkbox">
-                                                <label> <input type="checkbox" checked> 2 Stories </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-
-                                <fieldset class="padding-5">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox"> Laundry Room </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <div class="checkbox">
-                                                <label> <input type="checkbox"> Emergency Exit</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-
-                                <fieldset class="padding-5">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <div class="checkbox">
-                                                <label> <input type="checkbox" checked> Jog Path </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <div class="checkbox">
-                                                <label> <input type="checkbox"> 26' Ceilings </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-
-                                <fieldset class="padding-5">
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <div class="checkbox">
-                                                <label> <input type="checkbox"> Hurricane Shutters </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-
                                 <fieldset>
                                     <div class="row">
                                         <div class="col-xs-12">
@@ -202,46 +131,6 @@ $cities = $property->getAllCitiesFromProperties();
                         </div>
                         <div class="panel-body recent-property-widget">
                             <ul>
-                                <li>
-                                    <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                                        <a href="single.html"><img src="assets/img/demo/small-property-2.jpg"></a>
-                                        <span class="property-seeker">
-                                            <b class="b-1">A</b>
-                                            <b class="b-2">S</b>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                                        <h6> <a href="single.html">Super nice villa </a></h6>
-                                        <span class="property-price">3000000$</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="col-md-3 col-sm-3  col-xs-3 blg-thumb p0">
-                                        <a href="single.html"><img src="assets/img/demo/small-property-1.jpg"></a>
-                                        <span class="property-seeker">
-                                            <b class="b-1">A</b>
-                                            <b class="b-2">S</b>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                                        <h6> <a href="single.html">Super nice villa </a></h6>
-                                        <span class="property-price">3000000$</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                                        <a href="single.html"><img src="assets/img/demo/small-property-3.jpg"></a>
-                                        <span class="property-seeker">
-                                            <b class="b-1">A</b>
-                                            <b class="b-2">S</b>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                                        <h6> <a href="single.html">Super nice villa </a></h6>
-                                        <span class="property-price">3000000$</span>
-                                    </div>
-                                </li>
-
                                 <li>
                                     <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
                                         <a href="single.html"><img src="assets/img/demo/small-property-2.jpg"></a>
@@ -303,7 +192,7 @@ $cities = $property->getAllCitiesFromProperties();
                     </div><!--/ .layout-switcher-->
                 </div>
 
-                <div class="col-md-12 clear">
+                <div class="col-md-12 clear" id="theDiv">
                     <div id="list-type" class="proerty-th">
                         <?php // make a for each of all properties 
                         foreach ($properties as $prope) {
@@ -349,6 +238,7 @@ $cities = $property->getAllCitiesFromProperties();
                     </div>
                 </div>
 
+
                 <div class="col-md-12">
                     <div class="pull-right">
                         <div class="pagination">
@@ -364,6 +254,53 @@ $cities = $property->getAllCitiesFromProperties();
                     </div>
                 </div>
             </div>
+
+            <script>
+                $(document).ready(function () {
+
+                    // create ajax function that takes #keyword as value and sends to search.php
+                    $("#keyword").keyup(function () {
+                        var keyword = $("#keyword").val();
+                        $.ajax({
+                            url: "../PHP/properties/search.php",
+                            method: "POST",
+                            data: { keyword: keyword },
+                            success: function (data) {
+                                $("#theDiv").html(data);
+                                if (keyword == "") {
+                                    $("#list-type").show;
+                                }
+                                $("#list-type").hide;
+                            }
+                        });
+                    });
+
+                    // Initialize the slider
+                    $('#price-range').slider();
+
+                    // Add an event listener for the slide event
+                    $('#price-range').on('slide', function (event) {
+
+                        var values = event.value;
+
+                        // ajax function
+
+                        $.ajax({
+                            url: "../PHP/properties/search.php",
+                            method: "POST",
+                            data: { rentValue: values },
+                            success: function (data) {
+                                $("#theDiv").html(data);
+                                if (keyword == "") {
+                                    $("#list-type").show;
+                                }
+                                $("#list-type").hide;
+                            }
+                        });
+                    });
+                });
+
+            </script>
         </div>
     </div>
 </div>

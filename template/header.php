@@ -90,13 +90,15 @@ if (isset($_SESSION["Admin_ID"]) || isset($_SESSION["Landlord_ID"]) || isset($_S
         <link rel="stylesheet" href="assets/css/lightslider.min.css">
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/responsive.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
     </head>
 
     <body>
 
-        <!-- <div id="preloader">
+        <div id="preloader">
             <div id="status">&nbsp;</div>
-        </div>* -->
+        </div>
         <!-- Body content -->
 
         <div class="header-connect">

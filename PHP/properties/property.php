@@ -102,8 +102,14 @@ class Properties
 
     public function getPropertyByRangeRent($min, $max)
     {
-        $this->getPropertiesByMinRent($min);
-        $this->getPropertiesByMaxRent($max);
+        $sql = "Select * from property where Property_Rent between $min and $max";
+        $result = mysqli_query($this->conn, $sql);
+        $rows = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+
     }
     function getPropertyByRangeArea($min, $max)
     {
