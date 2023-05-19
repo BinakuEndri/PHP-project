@@ -92,39 +92,23 @@ if (isset($_SESSION["Tenant_ID"])) {
             </li>
 
             <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Properties</span>
+              <span class="menu-header-text">Property</span>
             </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Properties</div>
+                <div data-i18n="Account Settings">View Property Details</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Add Propery</div>
-              </a>
-            </li>
-
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Tenants</span>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link ">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Tenants</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link ">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Add Tenants</div>
+                <div data-i18n="Account Settings">View Landlord Deails</div>
               </a>
             </li>
 
             <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Managment</span>
+              <span class="menu-header-text">Talk to landlord</span>
             </li>
             <li class="menu-item">
               <a href="complain.php" class="menu-link ">

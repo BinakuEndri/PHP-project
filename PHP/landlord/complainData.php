@@ -32,10 +32,16 @@ if (isset($_POST["idd"])) {
     $complainMessage = $complainn["Message"];
     $complainReply = $complainn["Reply"];
 
+    $query = "SELECT * FROM Tenant WHERE Tenant_ID = '$complainReciver' ";
+    $result = mysqli_query($con, $query);
+    $reciver = mysqli_fetch_assoc($result);
+    $complainReciverName = $reciver["Tenant_FirstName"] . " " . $reciver["Tenant_LastName"];
+
     $newValues = array(
         'input1' => $complainTittle,
         'input2' => $complainMessage,
-        'input3' => $complainReply
+        'input3' => $complainReply,
+        'input4' => $complainReciverName,
     );
 
     echo json_encode($newValues);

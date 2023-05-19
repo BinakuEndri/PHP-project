@@ -277,6 +277,9 @@ $landlord_img = $landlord['Owner_img'];
             form.action = "../../../PHP/tenant/complain.php";
             $('#basic-icon-default-tittle').val("");
             $('#basic-icon-default-message').val("");
+            $('#response').attr("hidden", "true");
+            $('#basic-icon-default-tittle').removeAttr("disabled");
+            $('#basic-icon-default-message').removeAttr("disabled");
         });
     });
     function editButton(element) {
@@ -289,6 +292,9 @@ $landlord_img = $landlord['Owner_img'];
         button.innerHTML = "Update";
         var div1 = document.getElementById("div1");
         var div2 = document.getElementById("div2");
+        div1.removeAttribute("hidden");
+        div2.classList.remove("col-sm-10");
+        div2.classList.add("col-sm-7");
         div1.classList.remove("col-sm-10");
         div1.classList.add("col-sm-3");
         div2.removeAttribute("hidden");
@@ -324,14 +330,15 @@ $landlord_img = $landlord['Owner_img'];
                 $("#response").removeAttr("hidden");
                 var values = JSON.parse(data);
                 $('#basic-icon-default-response').val(values.input3);
-                $('#basic-icon-default-message').addattr("readonly");
+                $('#basic-icon-default-message').attr("disabled", "true");
                 $('#basic-icon-default-message').val(values.input2);
-                $('#basic-icon-default-tittle').addattr("readonly");
+                $('#basic-icon-default-tittle').attr("disabled", "true");
                 $('#basic-icon-default-tittle').val(values.input1);
             }
         });
         changeAddButton();
-
+        $('#div1').attr("hidden", "true");
+        $('#div2').attr("class", "col-sm-10");
     }
 
 

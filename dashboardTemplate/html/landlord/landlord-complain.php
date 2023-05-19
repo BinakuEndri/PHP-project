@@ -79,7 +79,19 @@ $resultt = mysqli_query($con, $queryy);
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-3">
+                        <div class="row mb-3" id="reciverName" hidden>
+                            <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Tenant Name</label>
+                            <div class="col-sm-10">
+                                <input type="hidden" name="landlordId" value="<?= $landlord_id ?>">
+                                <div class="input-group input-group-merge">
+                                    <input type="text" class="form-control" id="basic-icon-default-reciver"
+                                        placeholder="<?= $landlord_name ?>" aria-label="<?= $landlord_name ?>"
+                                        aria-describedby="basic-icon-default-fullname2" name="landlordName"
+                                        value="<?= $landlord_name ?>" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3" id="select">
                             <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Tenant
                                 Name</label>
                             <div class="col-sm-10">
@@ -123,6 +135,17 @@ $resultt = mysqli_query($con, $queryy);
                                         placeholder="Hi, Do you have a something to talk to <?= $tenant_name ?>"
                                         aria-label="Hi, Do you have a something to talk to <?= $tenant_name ?>"
                                         aria-describedby="basic-icon-default-message2" name="message"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3" id="response" hidden>
+                            <label class="col-sm-2 form-label" for="basic-icon-default-message">Response</label>
+                            <div class="col-sm-10">
+                                <div class="input-group input-group-merge">
+                                    <textarea id="basic-icon-default-response" class="form-control"
+                                        aria-label="Hi, Do you have a something to talk to <?= $tenant_name ?>"
+                                        aria-describedby="basic-icon-default-message2" name="message"
+                                        style="min-height: 150px; max-height:150px" readonly></textarea>
                                 </div>
                             </div>
                         </div>
@@ -294,8 +317,14 @@ $resultt = mysqli_query($con, $queryy);
 
             var form = document.getElementById("form");
             form.action = "../../../PHP/landlord/complain.php";
+            $('#reciverName').attr("hidden","true");
+            $('#select').removeAttr("hidden");
             $('#basic-icon-default-tittle').val("");
             $('#basic-icon-default-message').val("");
+            $('#basic-icon-default-message').val("");
+            $('#response').attr("hidden","true");
+            $('#basic-icon-default-tittle').removeAttr("disabled");
+            $('#basic-icon-default-message').removeAttr("disabled");
         });
     });
     function editButton(element) {
@@ -323,6 +352,9 @@ $resultt = mysqli_query($con, $queryy);
         button.innerHTML = "Update";
         var div1 = document.getElementById("div1");
         var div2 = document.getElementById("div2");
+        div1.removeAttribute("hidden");
+        div2.classList.remove("col-sm-10");
+        div2.classList.add("col-sm-7");
         div1.classList.remove("col-sm-10");
         div1.classList.add("col-sm-3");
         div2.removeAttribute("hidden");
@@ -341,12 +373,23 @@ $resultt = mysqli_query($con, $queryy);
             method: "POST",
             data: { idd: id },
             success: function (data) {
-                $("#mainDiv").html(data);
-
-                $("theForm").hide;
+                $("#response").removeAttr("hidden");
+                $("#reciverName").removeAttr("hidden");
+                $("#select").attr("hidden", "true");
+                var values = JSON.parse(data);
+                $('#basic-icon-default-response').val(values.input3);
+                $('#basic-icon-default-message').val(values.input2);
+                $('#basic-icon-default-message').attr("disabled", "true");
+                $('#basic-icon-default-message').attr("disabled", "true");
+                $('#basic-icon-default-tittle').attr("disabled", "true");
+                $('#basic-icon-default-tittle').val(values.input1);
+                $('#basic-icon-default-reciver').val(values.input4);
 
             }
         });
+        changeAddButton();
+        $('#div1').attr("hidden", "true");
+        $('#div2').attr("class","col-sm-10");
 
     }
 
