@@ -74,7 +74,7 @@ if (isset($_SESSION["Landlord_ID"])) {
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="index.html" class="app-brand-link">
+            <a href="landlod-dashboard.php" class="app-brand-link">
 
               <span class="app-brand-text demo menu-text fw-bolder ms-2">Landlord</span>
             </a>
@@ -88,8 +88,8 @@ if (isset($_SESSION["Landlord_ID"])) {
 
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item active">
-              <a href="index.html" class="menu-link">
+            <li class="menu-item">
+              <a href="landlod-dashboard.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
@@ -142,8 +142,6 @@ if (isset($_SESSION["Landlord_ID"])) {
                 <div data-i18n="Account Settings">Write A Complain</div>
               </a>
             </li>
-
-
 
           </ul>
         </aside>

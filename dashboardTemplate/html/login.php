@@ -349,11 +349,11 @@ if (isset($_COOKIE["landlord_username"]) && isset($_COOKIE["landlord_password"])
                       </g>
                     </svg>
                   </span>
-                  <span class="app-brand-text demo text-body fw-bolder">Sneat</span>
+                  <span class="app-brand-text demo text-body fw-bolder">Rentopia</span>
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Welcome to Sneat! 👋</h4>
+              <h4 class="mb-2">Welcome to Rentopia! 👋</h4>
               <p class="mb-4">
                 Please sign-in to your account and start the adventure
               </p>

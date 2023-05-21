@@ -138,18 +138,7 @@ if (isset($_SESSION["Admin_ID"])) {
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Managment</span>
             </li>
-            <li class="menu-item">
-              <a href="admin-dashboard.php" class="menu-link ">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Compains</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="admin-dashboard.php" class="menu-link ">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Rent Collection</div>
-              </a>
-            </li>
+
             <li class="menu-item">
               <a href="../../../template/index.php" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>

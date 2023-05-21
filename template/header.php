@@ -176,28 +176,13 @@ if (isset($_SESSION["Admin_ID"]) || isset($_SESSION["Landlord_ID"]) || isset($_S
                     </div>
                     <ul class="main-nav nav navbar-nav navbar-right">
                         <li class="dropdown ymm-sw " data-wow-delay="0.1s">
-                            <a href="index.html" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown"
+                            <a href="index.php" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown"
                                 data-delay="200">Home <b class="caret"></b></a>
-                            <ul class="dropdown-menu navbar-nav">
-                                <li>
-                                    <a href="index-2.html">Home Style 2</a>
-                                </li>
-                                <li>
-                                    <a href="index-3.html">Home Style 3</a>
-                                </li>
-                                <li>
-                                    <a href="index-4.html">Home Style 4</a>
-                                </li>
-                                <li>
-                                    <a href="index-5.html">Home Style 5</a>
-                                </li>
-
-                            </ul>
                         </li>
 
                         <li class="wow fadeInDown" data-wow-delay="0.2s"><a class=""
                                 href="properties.php">Properties</a></li>
-                        <li class="wow fadeInDown" data-wow-delay="0.3s"><a class="" href="property.html">Property</a>
+                        <li class="wow fadeInDown" data-wow-delay="0.3s"><a class="" href="faq.html">FAQ</a>
                         </li>
                         <li class="wow fadeInDown" data-wow-delay="0.5s"><a href="contact.html">Contact</a></li>
                     </ul>
