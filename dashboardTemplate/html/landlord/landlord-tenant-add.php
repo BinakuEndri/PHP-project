@@ -50,7 +50,7 @@ $id = $landlord["Owner_ID"];
                     <small class="text-muted float-end">Merged input group</small>
                 </div>
                 <div class="card-body">
-                    <form action="../../../PHP/admin/tenant-add.php" method="Post" enctype="multipart/form-data">
+                    <form action="../../../PHP/landlord/tenant-add.php" method="Post" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label class="form-label" for="basic-icon-default-fullname">First Name</label>
                             <div class="input-group input-group-merge">
@@ -162,7 +162,7 @@ $id = $landlord["Owner_ID"];
 
 
                         <button type="submit" class="btn btn-primary" name="register">
-                            Register
+                            Add
                         </button>
                     </form>
                 </div>

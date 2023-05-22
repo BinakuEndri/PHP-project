@@ -1,5 +1,5 @@
-<?php include 'admin-menu.php' ?>
-<?php include 'admin-navbar.php' ?>
+<?php include 'landlord-menu.php' ?>
+<?php include 'landlord-navbar.php' ?>
 
 <?php
 $con = require "../../../PHP/database.php";
@@ -41,7 +41,8 @@ if (isset($_POST['edit'])) {
                     </small>
                 </div>
                 <div class="card-body">
-                    <form action="../../../PHP/admin/tenant-edit.php" method="Post" enctype="multipart/form-data">
+                    <form action="../../../PHP/tenant/landlord-tenant-edit.php" method="Post"
+                        enctype="multipart/form-data">
 
                         <div class="mb-3">
                             <label class="form-label" for="basic-icon-default-fullname">First Name</label>
@@ -139,4 +140,4 @@ if (isset($_POST['edit'])) {
 
 $con->close();
 ?>
-<?php include 'admin-footer.php' ?>
+<?php include 'landlord-footer.php' ?>

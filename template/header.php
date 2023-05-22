@@ -107,8 +107,8 @@ if (isset($_SESSION["Admin_ID"]) || isset($_SESSION["Landlord_ID"]) || isset($_S
                     <div class="col-md-5 col-sm-8  col-xs-12">
                         <div class="header-half header-call">
                             <p>
-                                <span><i class="pe-7s-call"></i> +1 234 567 7890</span>
-                                <span><i class="pe-7s-mail"></i> your@company.com</span>
+                                <span><i class="pe-7s-call"></i> +383 44 000 000</span>
+                                <span><i class="pe-7s-mail"></i> therentopia@gmail.com</span>
                             </p>
                         </div>
                     </div>

@@ -7,7 +7,7 @@ $name = $landlord["Owner_FirstName"] . " " . $landlord["Owner_LastName"];
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">Forms/</span> Vertical Layouts
+        <span class="text-muted fw-light">Property/</span> Property Adds
     </h4>
     <?php
     if (isset($_SESSION["Property_add"])) {
@@ -52,7 +52,7 @@ $name = $landlord["Owner_FirstName"] . " " . $landlord["Owner_LastName"];
                     <small class="text-muted float-end">Merged input group</small>
                 </div>
                 <div class="card-body">
-                    <form action="../../../PHP/admin/property-add.php" method="Post" enctype="multipart/form-data">
+                    <form action="../../../PHP/landlord/property-add.php" method="Post" enctype="multipart/form-data">
                         <div class="row">
 
                             <div class="col-6">
@@ -110,7 +110,7 @@ $name = $landlord["Owner_FirstName"] . " " . $landlord["Owner_LastName"];
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="defaultSelect" class="form-label">Default select</label>
+                                    <label for="defaultSelect" class="form-label">Owner </label>
                                     <select id="defaultSelect" class="form-select" name="owner">
                                         <option>
                                             <?= $name ?>

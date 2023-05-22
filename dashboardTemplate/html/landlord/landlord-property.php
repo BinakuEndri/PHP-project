@@ -1,19 +1,52 @@
 <?php include 'landlord-menu.php' ?>
+<?php include '../../../PHP/message.php' ?>
 <?php include 'landlord-navbar.php' ?>
-
 
 <?php
 $con = require "../../../PHP/database.php";
+$id = $landlord["Owner_ID"];
 
-$query = "select * from property where property_owner=6";
+$query = "select * from property where Property_Owner ='$id'";
 
 
 $result = mysqli_query($con, $query);
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">Landlords/</span> Landlord Details
+        <span class="text-muted fw-light">Property/</span> Property Details
     </h4>
+    <?php
+    if (isset($_SESSION["Property_delete"])) {
+
+        showMessage($_SESSION["Property_delete"], "success");
+        unset($_SESSION["Property_delete"]);
+
+    }
+    ?>
+    <?php
+    if (isset($_SESSION["Property_delete_fail"])) {
+
+        showMessage($_SESSION["Property_delete_fail"], "danger");
+        unset($_SESSION["Property_delete_fail"]);
+
+    }
+    ?>
+    <?php
+    if (isset($_SESSION["Property_edit"])) {
+
+        showMessage($_SESSION["Property_edit"], "success");
+        unset($_SESSION["Property_edit"]);
+
+    }
+    ?>
+    <?php
+    if (isset($_SESSION["Property_edit_fail"])) {
+
+        showMessage($_SESSION["Property_edit_fail"], "danger");
+        unset($_SESSION["Property_edit_fail"]);
+
+    }
+    ?>
 
     <!-- Basic Layout -->
     <div class="row">
@@ -24,18 +57,14 @@ $result = mysqli_query($con, $query);
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Image</th>
                             <th>Type</th>
                             <th>Number</th>
                             <th>City</th>
                             <th>Address</th>
-                            <th>Rooms</th>
-                            <th>Bathrooms</th>
                             <th>Size</th>
-                            <th>Kichen</th>
                             <th>Rent Amount</th>
-                            <th>Owner</th>
-                            <th>Owner</th>
-
+                            <th>Action</th>
 
                         </tr>
                     </thead>
@@ -45,6 +74,10 @@ $result = mysqli_query($con, $query);
                                 ?>
                                 <td>
                                     <?php echo $row['Property_ID'] ?>
+                                </td>
+                                <td>
+                                    <img src="<?php echo "../../../uploads/property/" . $row['Property_Cover'] ?>"
+                                        width="100px" height="75px">
                                 </td>
                                 <td>
                                     <?php echo $row['Property_Type'] ?>
@@ -60,25 +93,13 @@ $result = mysqli_query($con, $query);
                                     <?php echo $row['Property_Address'] ?>
                                 </td>
                                 <td>
-                                    <?php echo $row['Rooms'] ?>
-                                </td>
-                                <td>
-                                    <?php echo $row['Bathrooms'] ?>
-                                </td>
-                                <td>
                                     <?php echo $row['Size'] ?>
-                                </td>
-                                <td>
-                                    <?php echo $row['Kitchen'] ?>
                                 </td>
                                 <td>
                                     <?php echo $row['RentAmount'] ?>
                                 </td>
                                 <td>
-                                    <?php echo $row['Property_Owner'] ?>
-                                </td>
-                                <td>
-                                <div class="dropdown">
+                                    <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                             data-bs-toggle="dropdown">
                                             <i class="bx bx-dots-vertical-rounded"></i>
@@ -89,7 +110,7 @@ $result = mysqli_query($con, $query);
                                                 <button type="submit" class="btn btn-outline-info dropdown-item"
                                                     name="edit"><i class="bx bx-edit-alt me-1"></i>Edit</button>
                                             </form>
-                                            <form action="../../../PHP/admin/landlord-delete.php" method="POST">
+                                            <form action="../../../PHP/landlord/landlord-property-delete.php" method="POST">
                                                 <input type="hidden" name="id" value="<?php echo $row['Property_ID'] ?>">
                                                 <button type="submit" class="btn btn-outline-secondary dropdown-item"
                                                     name="delete"><i class="bx bx-trash me-1"></i>Delete</button>

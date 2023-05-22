@@ -3,7 +3,7 @@
 
 <?php
 $con = require "../../../PHP/database.php";
-$id = $landlord["Owner_ID"]; 
+$id = $landlord["Owner_ID"];
 $sql = "select *
 FROM tenant
 INNER JOIN property ON tenant.Tenant_Property = property.Property_ID
@@ -14,14 +14,14 @@ $result = mysqli_query($con, $sql);
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">Tenants</span> 
+        <span class="text-muted fw-light">Edit Tenants</span>
     </h4>
-   
+
 
     <!-- Basic Layout -->
     <div class="row">
         <div class="card">
-            <h5 class="card-header">Striped rows</h5>
+            <h5 class="card-header">Edit Tenants</h5>
             <div class="table-responsive text-nowrap">
                 <table class="table table-striped">
                     <thead>
@@ -77,12 +77,12 @@ $result = mysqli_query($con, $sql);
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <form action="../../../PHP/admin/landlord-tenant-edit.php" method="POST">
+                                            <form action="landlord-tenant-edit.php" method="POST">
                                                 <input type="hidden" name="id" value="<?php echo $row['Tenant_ID'] ?>">
                                                 <button type="submit" class="btn btn-outline-info dropdown-item"
                                                     name="edit"><i class="bx bx-edit-alt me-1"></i>Edit</button>
                                             </form>
-                                            <form action="../../../PHP/admin/landlord-tenant-delete.php" method="POST">
+                                            <form action="../../../PHP/landlord/landlord-tenant-delete.php" method="POST">
                                                 <input type="hidden" name="id" value="<?php echo $row['Tenant_ID'] ?>">
                                                 <button type="submit" class="btn btn-outline-secondary dropdown-item"
                                                     name="delete"><i class="bx bx-trash me-1"></i>Delete</button>

@@ -273,29 +273,64 @@ function getMostProfitFromandlords($con)
         </div>
     </div>
     <div class="row">
-        <div class="col-md col-lg-6">
-            <h5 class="my-4">Bootstrap crossfade carousel (dark)</h5>
 
-            <div id="carouselExample-cf" class="carousel carousel-dark slide carousel-fade" data-bs-ride="carousel">
+        <?php $query = "SELECT * FROM property 
+    ORDER BY RentAmount DESC 
+    Limit 3";
+
+        $result = mysqli_query($con, $query);
+
+        ?>
+
+
+        <div class="col-md">
+            <h5 class="my-4">Most Valubla Properties</h5>
+
+            <div id="carouselExample" class="carousel carousel-dark slide pointer-event" data-bs-ride="carousel">
                 <ol class="carousel-indicators">
-                    <li data-bs-target="#carouselExample-cf" data-bs-slide-to="0" class="active"></li>
-                    <li data-bs-target="#carouselExample-cf" data-bs-slide-to="1" class=""></li>
-                    <li data-bs-target="#carouselExample-cf" data-bs-slide-to="2" class="" aria-current="true">
-                    </li>
+                    <li data-bs-target="#carouselExample" data-bs-slide-to="0" class=""></li>
+                    <li data-bs-target="#carouselExample" data-bs-slide-to="1" class="active" aria-current="true"></li>
+                    <li data-bs-target="#carouselExample" data-bs-slide-to="2" class=""></li>
                 </ol>
                 <div class="carousel-inner">
-                    <?= highestProfitProperty($con) ?>
+                    <?php
+
+                    $active = true;
+
+                    while ($property = mysqli_fetch_assoc($result)) {
+                        $number = $property['Property_Number'];
+                        $imagePath = "../../../uploads/property/" . $property['Property_Cover'];
+
+                        ?>
+
+                        <div class="carousel-item <?php echo $active ? 'active' : ''; ?>">
+                            <img class="d-block w-100" src="<?php echo $imagePath; ?>" alt="<?php echo $number; ?>">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h3>
+                                    <?php echo $number; ?>
+                                </h3>
+                                <p>
+                                </p>
+                            </div>
+                        </div>
+
+                        <?php
+                        $active = false;
+                    }
+                    ?>
                 </div>
-                <a class="carousel-control-prev" href="#carouselExample-cf" role="button" data-bs-slide="prev">
+                <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carouselExample-cf" role="button" data-bs-slide="next">
+                <a class="carousel-control-next" href="#carouselExample" role="button" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </a>
             </div>
         </div>
+
+
         <div class="col-md-6 col-lg-6 order-2 mb-4">
             <div class="card h-100">
                 <div class="card-header d-flex align-items-center justify-content-between">

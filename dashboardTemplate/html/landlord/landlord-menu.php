@@ -13,6 +13,7 @@ if (isset($_SESSION["Landlord_ID"])) {
   $result = $con->query($query);
 
   $landlord = $result->fetch_assoc();
+
 }
 
 
@@ -89,7 +90,7 @@ if (isset($_SESSION["Landlord_ID"])) {
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item">
-              <a href="landlod-dashboard.php" class="menu-link">
+              <a href="landlord-dashboard.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
