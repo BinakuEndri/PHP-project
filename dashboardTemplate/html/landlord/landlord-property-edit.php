@@ -16,6 +16,7 @@ if (isset($_POST['edit'])) {
     $city = $row["Property_City"];
     $address = $row["Property_Address"];
     $rent = $row["RentAmount"];
+    $size = $row["Size"];
     $img = $row["Property_Cover"];
     $img2 = $row["Property_img_2"];
     $img3 = $row["Property_img_3"];
@@ -94,8 +95,18 @@ if (isset($_POST['edit'])) {
                                         <span id="basic-icon-default-company2" class="input-group-text"><i
                                                 class="bx bx-user"></i></span>
                                         <input type="text" id="basic-icon-default-company" class="form-control"
-                                            placeholder="Property Address" aria-label="Property Address" value="<?php echo $rent?>"
+                                            placeholder="Rent Amount" aria-label="Rent Amount" value="<?php echo $rent?>"
                                             aria-describedby="basic-icon-default-company2" name="rent" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="basic-icon-default-company">Size m2</label>
+                                    <div class="input-group input-group-merge">
+                                        <span id="basic-icon-default-company2" class="input-group-text"><i
+                                                class="bx bx-user"></i></span>
+                                        <input type="text" id="basic-icon-default-company" class="form-control"
+                                            placeholder="Size" aria-label="Size" value="<?php echo $size?>"
+                                            aria-describedby="basic-icon-default-company2" name="size" />
                                     </div>
                                 </div>
                                 <div class="mb-3">

@@ -106,6 +106,16 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
+                                    <label class="form-label" for="basic-icon-default-company">Size m2</label>
+                                    <div class="input-group input-group-merge">
+                                        <span id="basic-icon-default-company2" class="input-group-text"><i
+                                                class="bx bx-user"></i></span>
+                                        <input type="text" id="basic-icon-default-company" class="form-control"
+                                            placeholder="Size" aria-label="Size"
+                                            aria-describedby="basic-icon-default-company2" name="size" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
                                     <label for="defaultSelect" class="form-label">Default select</label>
                                     <select id="defaultSelect" class="form-select" name="owner">
                                         <option>Default select</option>

@@ -110,6 +110,17 @@ $name = $landlord["Owner_FirstName"] . " " . $landlord["Owner_LastName"];
                                     </div>
                                 </div>
                                 <div class="mb-3">
+                                    <label class="form-label" for="basic-icon-default-company">Size
+                                        Amount</label>
+                                    <div class="input-group input-group-merge">
+                                        <span id="basic-icon-default-company2" class="input-group-text"><i
+                                                class="bx bx-user"></i></span>
+                                        <input type="text" id="basic-icon-default-company" class="form-control"
+                                            placeholder="Size" aria-label="Size"
+                                            aria-describedby="basic-icon-default-company2" name="size" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
                                     <label for="defaultSelect" class="form-label">Owner </label>
                                     <select id="defaultSelect" class="form-select" name="owner">
                                         <option>

@@ -23,6 +23,17 @@ class Properties
 
     }
 
+    public function getRecentProperies()
+    {
+        $sql = "SELECT * FROM property ORDER BY Property_RegisterDate DESC LIMIT 3";
+        $result = mysqli_query($this->conn, $sql);
+        $rows = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
     public function getPropertiesById($id)
     {
 

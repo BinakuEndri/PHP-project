@@ -48,6 +48,7 @@ if (
         Property_City,
         Property_Address,
         RentAmount,
+        Size,
         Property_Owner,
         Property_Cover,
         Property_img_2,
@@ -56,17 +57,18 @@ if (
         Property_img_5,
         Property_RegisterDate
         ) 
-        Values(?,?,?,?,?,?,?,?,?,?,?,?)';
+        Values(?,?,?,?,?,?,?,?,?,?,?,?,?)';
         if ($stmt = $con->prepare($sql)) {
             $date = date('y-m-d');
             $images = addPhotos("image", "property");
             $stmt->bind_param(
-                'ssssssssssss',
+                'sssssssssssss',
                 $_POST['type'],
                 $_POST['number'],
                 $_POST['city'],
                 $_POST['address'],
                 $_POST['rent'],
+                $_POST['size'],
                 $_POST['owner'],
                 $images[0],
                 $images[1],

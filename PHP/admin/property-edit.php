@@ -37,6 +37,8 @@ if (isset($_POST['edit'])) {
     $city = $_POST['city'];
     $owner = $_POST['owner'];
     $rent = $_POST['rent'];
+    $size = $_POST['size'];
+    $type = $_POST['type'];
 
     $images = editPhotos("image", "img", "property");
     $date = date('y-m-d');
@@ -44,7 +46,9 @@ if (isset($_POST['edit'])) {
     Property_Address ='$address',
     Property_City ='$city',
     Property_Owner='$owner', 
+    Property_Type='$type',
     RentAmount='$rent', 
+    Size = '$size',
     Property_Cover = '$images[0]',
     Property_img_2 = '$images[1]',
     Property_img_3 = '$images[2]',

@@ -284,7 +284,7 @@ function getMostProfitFromandlords($con)
 
 
         <div class="col-md">
-            <h5 class="my-4">Most Valubla Properties</h5>
+            <h5 class="my-4">Most Valuable Properties</h5>
 
             <div id="carouselExample" class="carousel carousel-dark slide pointer-event" data-bs-ride="carousel">
                 <ol class="carousel-indicators">

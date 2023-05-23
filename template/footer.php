@@ -1,4 +1,6 @@
 <!-- Footer area-->
+
+
 <div class="footer-area">
 
     <div class=" footer">
@@ -34,53 +36,30 @@
                 </div>
                 <div class="col-md-3 col-sm-6 wow fadeInRight animated">
                     <div class="single-footer">
-                        <h4>Last News</h4>
+                        <h4>Recent</h4>
                         <div class="footer-title-line"></div>
                         <ul class="footer-blog">
-                            <li>
-                                <div class="col-md-3 col-sm-4 col-xs-4 blg-thumb p0">
-                                    <a href="single.html">
-                                        <img src="assets/img/demo/small-proerty-2.jpg">
-                                    </a>
-                                    <span class="blg-date">12-12-2016</span>
+                            <?php foreach ($recentProperties as $recent) { ?>
+                                <li>
+                                    <div class="col-md-3 col-sm-4 col-xs-4 blg-thumb p0">
+                                        <a href="property.php?<?= $recent["Property_ID"] ?>">
+                                            <img src="../uploads/property/<?= $recent["Property_Cover"] ?>">
+                                        </a>
+                                        <span class="blg-date">
+                                            <?= $recent["Property_RegisterDate"] ?>
+                                        </span>
 
-                                </div>
-                                <div class="col-md-8  col-sm-8 col-xs-8  blg-entry">
-                                    <h6> <a href="single.html">Add news functions </a></h6>
-                                    <p style="line-height: 17px; padding: 8px 2px;">Lorem ipsum dolor sit amet, nulla
-                                        ...</p>
-                                </div>
-                            </li>
+                                    </div>
+                                    <div class="col-md-8  col-sm-8 col-xs-8  blg-entry">
+                                        <h6> <a href="property.php?<?= $recent["Property_ID"] ?>"><?php echo $recent["Property_Number"] . " " . $recent["Property_Type"] ?> </a></h6>
+                                        <p style="line-height: 17px; padding: 8px 2px;">Lorem ipsum dolor sit amet, nulla
+                                            ...</p>
+                                    </div>
+                                </li>
+                            <?php } ?>
 
-                            <li>
-                                <div class="col-md-3 col-sm-4 col-xs-4 blg-thumb p0">
-                                    <a href="single.html">
-                                        <img src="assets/img/demo/small-proerty-2.jpg">
-                                    </a>
-                                    <span class="blg-date">12-12-2016</span>
 
-                                </div>
-                                <div class="col-md-8  col-sm-8 col-xs-8  blg-entry">
-                                    <h6> <a href="single.html">Add news functions </a></h6>
-                                    <p style="line-height: 17px; padding: 8px 2px;">Lorem ipsum dolor sit amet, nulla
-                                        ...</p>
-                                </div>
-                            </li>
 
-                            <li>
-                                <div class="col-md-3 col-sm-4 col-xs-4 blg-thumb p0">
-                                    <a href="single.html">
-                                        <img src="assets/img/demo/small-proerty-2.jpg">
-                                    </a>
-                                    <span class="blg-date">12-12-2016</span>
-
-                                </div>
-                                <div class="col-md-8  col-sm-8 col-xs-8  blg-entry">
-                                    <h6> <a href="single.html">Add news functions </a></h6>
-                                    <p style="line-height: 17px; padding: 8px 2px;">Lorem ipsum dolor sit amet, nulla
-                                        ...</p>
-                                </div>
-                            </li>
 
 
                         </ul>

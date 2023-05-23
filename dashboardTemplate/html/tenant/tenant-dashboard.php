@@ -5,133 +5,125 @@
 
 $con = require "../../../PHP/database.php";
 
-function highestProfitProperty($con)
+$id = $tenant["Tenant_ID"];
+
+$query = "Select * from Property p inner join tenant t on t.Tenant_Property = p.Property_ID where t.Tenant_ID = $id";
+
+$result = mysqli_query($con, $query);
+
+$property = mysqli_fetch_assoc($result);
+
+$property_id = $property["Property_ID"];
+$property_number = $property["Property_Number"];
+$property_type = $property["Property_Type"];
+$property_city = $property["Property_City"];
+$property_address = $property["Property_Address"];
+$property_rent = $property["RentAmount"];
+$property_size = $property["Size"];
+$property_cover = $property["Property_Cover"];
+$property_img_2 = $property["Property_img_2"];
+$property_img_3 = $property["Property_img_3"];
+$property_img_4 = $property["Property_img_4"];
+$property_img_5 = $property["Property_img_5"];
+
+
+
+function countComplains($con, $id)
 {
-    $query = "SELECT * FROM property 
-    ORDER BY RentAmount DESC 
-    Limit 3";
+
+    $query = "SELECT COUNT(*) as complains FROM complains c Where Reciver_ID = '$id'";
 
     $result = mysqli_query($con, $query);
 
-    while ($property = mysqli_fetch_assoc($result)) {
-        $number = $property['Property_Number'];
+    $complains = $result->fetch_assoc();
 
-        echo
-            "<div class='carousel-item active'>
-             <img class='d-block w-100' src='../../static/assets/img/elements/18.jpg' alt='First slide'>
-            <div class='carousel-caption d-none d-md-block'>
-                <h3>
-                     $number
-                </h3>
-                <p>Eos mutat malis maluisset et, agam ancillae quo te, in vim congue pertinacia.</p>
-             </div>
-          </div>";
-    }
-
+    return $complains['complains'];
 }
 
-function countUsers($con, $type)
+function complainsGrowthMonthly($con, $id)
 {
-    $query = "select COUNT(*) as cnt from $type";
 
-    $result = mysqli_query($con, $query);
-
-    $user = $result->fetch_assoc();
-
-    return $user['cnt'];
-}
-
-function calculateGrowth($con, $type)
-{
     if (idate('m') < 10) {
         $month = "-0";
     } else {
         $month = "-";
     }
     $date = date('Y') . $month . idate('m') . "-01";
-    $column = $type . "_RegisterDate";
-    $query = "select COUNT(*) as added from $type where $column > '$date' ";
-    $result = mysqli_query($con, $query);
-
-    $Added = $result->fetch_assoc();
-
-    $Growth = round(($Added['added'] * 100) / countUsers($con, $type), 2);
-
-    return $Growth;
-}
-
-function calculateProfit($con)
-{
-    $profit = 0;
-    $query = "select sum(RentAmount) as rent from property";
+    $query = "select COUNT(*) as complains from complains where Date > '$date' and Reciver_ID = '$id'";
 
     $result = mysqli_query($con, $query);
 
     $sum = $result->fetch_assoc();
-    $profit += $sum['rent'] * 0.05;
-    return $profit;
+
+    if (countComplains($con, $id) == 0) {
+        return 0;
+    }
+
+    $Growth = round(($sum['complains'] * 100) / countComplains($con, $id), 2);
+
+    return $Growth;
 }
 
-function calculateProfitGrowth($con)
+function countComplainsWritten($con, $id)
 {
+    $query = "SELECT COUNT(*) as complains FROM complains c Where Sender_ID = '$id'";
+
+    $result = mysqli_query($con, $query);
+
+    $complains = $result->fetch_assoc();
+
+    return $complains['complains'];
+}
+
+function complainsSendedGrowthMonthly($con, $id)
+{
+
     if (idate('m') < 10) {
         $month = "-0";
     } else {
         $month = "-";
     }
     $date = date('Y') . $month . idate('m') . "-01";
-    $profit = 0;
-    $query = "select sum(RentAmount) as rent from property where Property_RegisterDate > '$date'";
+    $query = "select COUNT(*) as complains from complains where Date > '$date' and Sender_ID = '$id'";
 
     $result = mysqli_query($con, $query);
 
     $sum = $result->fetch_assoc();
-    $profit += $sum['rent'] * 0.05;
 
-    $Growth = round(($profit * 100) / calculateProfit($con), 2);
+    if (countComplainsWritten($con, $id) == 0) {
+        return 0;
+    }
+
+    $Growth = round(($sum['complains'] * 100) / countComplainsWritten($con, $id), 2);
+
     return $Growth;
+
 }
 
-function getMostProfitFromandlords($con)
+function countRespondedComplains($con, $id)
 {
-    $query = "SELECT o.Owner_FirstName AS name, 
-    o.Owner_LastName AS lastname, o.Owner_img as img,
-    SUM(p.RentAmount) AS total_rent
-    FROM Owner o 
-    INNER JOIN property p ON o.Owner_ID = p.Property_Owner
-    GROUP BY o.Owner_ID
-    ORDER BY total_rent DESC
-    LIMIT 10;";
+
+    $query = "SELECT COUNT(*) as complains FROM complains c Where Reciver_ID = '$id' AND Reply IS NOT NULL";
+
     $result = mysqli_query($con, $query);
 
-    while ($resultt = mysqli_fetch_assoc($result)) {
+    $complains = $result->fetch_assoc();
 
-        $name = $resultt["name"];
-        $lastname = $resultt["lastname"];
-        $fullname = $name . " " . $lastname;
-        $rent = $resultt["total_rent"];
-        $img = $resultt["img"];
-        $src = "../../../uploads/landlord/" . $img;
-        echo "
-        <li class='d-flex mb-4 pb-1'>
-            <div class='avatar flex-shrink-0 me-3'>
-                <img src='$src' alt='User' class='rounded'>
-            </div>
-            <div class='d-flex w-100 flex-wrap align-items-center justify-content-between gap-2'>
-                <div class='me-2'>
-                    <small class='text-muted d-block mb-1'></small>
-                    <h6 class='mb-0'>
-                        $fullname 
-                    </h6>
-                </div>
-                <div class='user-progress d-flex align-items-center gap-1'>
-                    <h6 class='mb-0'>$rent</h6>
-                    <span class='text-muted'>€</span>
-                </div>
-            </div>
-        </li>
-       ";
-    }
+    return $complains['complains'];
+
+}
+
+function countUnrespondedComplains($con, $id)
+{
+
+    $query = "SELECT COUNT(*) as complains FROM complains c Where Reciver_ID = '$id' AND Reply IS NULL";
+
+    $result = mysqli_query($con, $query);
+
+    $complains = $result->fetch_assoc();
+
+    return $complains['complains'];
+
 }
 
 ?>
@@ -143,7 +135,7 @@ function getMostProfitFromandlords($con)
 
     <!-- Basic Layout -->
     <div class="row">
-        <div class="col-lg-6 col-md-6 order-1">
+        <div class="col-lg-6 col-md-12 order-1">
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-6 mb-4">
                     <div class="card">
@@ -164,12 +156,12 @@ function getMostProfitFromandlords($con)
                                     </div>
                                 </div>
                             </div>
-                            <span class="fw-semibold d-block mb-1">Number of Properties</span>
+                            <span class="fw-semibold d-block mb-1">Number of Complains To You</span>
                             <h3 class="card-title mb-2">
-                                <?= countUsers($con, 'property') ?>
+                                <?= countComplains($con, $id) ?>
                             </h3>
-                            <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>
-                                <?= calculateGrowth($con, "property") ?>%
+                            <small class="text-danger fw-semibold"><i class="bx bx-up-arrow-alt"></i>
+                                <?= complainsGrowthMonthly($con, $id) ?>%
                                 Monthly incrase
                             </small>
                         </div>
@@ -194,21 +186,20 @@ function getMostProfitFromandlords($con)
                                     </div>
                                 </div>
                             </div>
-                            <span>Number of Landlords</span>
+                            <span>Number of complains you have written</span>
                             <h3 class="card-title text-nowrap mb-1">
-                                <?= countUsers($con, 'owner') ?>
+                                <?= countComplainsWritten($con, $id) ?>
                             </h3>
                             <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>
-                                <?= calculateGrowth($con, "owner") ?>%
+                                <?= complainsSendedGrowthMonthly($con, $id) ?>%
                                 Monthly incrase
-
                             </small>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 col-md-6 order-1">
+        <div class="col-lg-6 col-md-12 order-1">
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-6 mb-4">
                     <div class="card">
@@ -229,14 +220,10 @@ function getMostProfitFromandlords($con)
                                     </div>
                                 </div>
                             </div>
-                            <span class="fw-semibold d-block mb-1">Number of Tenants</span>
+                            <span class="fw-semibold d-block mb-1">Number of Responded Complains</span>
                             <h3 class="card-title mb-2">
-                                <?= countUsers($con, "tenant") ?>
+                                <?= countRespondedComplains($con, $id) ?>
                             </h3>
-                            <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>
-                                <?= calculateGrowth($con, "tenant") ?>%
-                                Monthly incrase
-                            </small>
                         </div>
                     </div>
                 </div>
@@ -259,32 +246,83 @@ function getMostProfitFromandlords($con)
                                     </div>
                                 </div>
                             </div>
-                            <span>Monthly Profit</span>
-                            <h3 class="card-title text-nowrap mb-1">€
-                                <?= calculateProfit($con) ?>
+                            <span>Number of UnResponded Complaisn</span>
+                            <h3 class="card-title text-nowrap mb-1">
+                                <?= countUnrespondedComplains($con, $id) ?>
                             </h3>
-                            <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>
-                                <?= calculateProfitGrowth($con) ?> % Monthly incrase
-                            </small>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
     <div class="row">
-        <div class="col-md col-lg-6">
-            <h5 class="my-4">Bootstrap crossfade carousel (dark)</h5>
+        <div class="col-md-6 col-lg-6 order-2 mb-4">
+            <h5 class="my-4">My Property</h5>
 
-            <div id="carouselExample-cf" class="carousel carousel-dark slide carousel-fade" data-bs-ride="carousel">
+            <div id="carouselExample-cf" class="carousel carousel-dark slide carousel-fade pointer-event"
+                data-bs-ride="carousel">
                 <ol class="carousel-indicators">
-                    <li data-bs-target="#carouselExample-cf" data-bs-slide-to="0" class="active"></li>
-                    <li data-bs-target="#carouselExample-cf" data-bs-slide-to="1" class=""></li>
-                    <li data-bs-target="#carouselExample-cf" data-bs-slide-to="2" class="" aria-current="true">
+                    <li data-bs-target="#carouselExample-cf" data-bs-slide-to="0" class="active" aria-current="true">
                     </li>
+                    <li data-bs-target="#carouselExample-cf" data-bs-slide-to="1" class=""></li>
+                    <li data-bs-target="#carouselExample-cf" data-bs-slide-to="2" class=""></li>
+                    <li data-bs-target="#carouselExample-cf" data-bs-slide-to="3" class=""></li>
+                    <li data-bs-target="#carouselExample-cf" data-bs-slide-to="4" class=""></li>
+
                 </ol>
                 <div class="carousel-inner">
-                    <?= highestProfitProperty($con) ?>
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src="../../../uploads/property/<?= $property_cover ?>"
+                            alt="First slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>
+                                <?= $property_number ?>
+                            </h3>
+                            <p>Eos mutat malis maluisset et, agam ancillae quo te, in vim congue pertinacia.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item ">
+                        <img class="d-block w-100" src="../../../uploads/property/<?= $property_img_2 ?>"
+                            alt="First slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>
+                                <?= $property_number ?>
+                            </h3>
+                            <p>Eos mutat malis maluisset et, agam ancillae quo te, in vim congue pertinacia.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item ">
+                        <img class="d-block w-100" src="../../../uploads/property/<?= $property_img_3 ?>"
+                            alt="First slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>
+                                <?= $property_number ?>
+                            </h3>
+                            <p>Eos mutat malis maluisset et, agam ancillae quo te, in vim congue pertinacia.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="../../../uploads/property/<?= $property_img_4 ?>"
+                            alt="Second slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>
+                                <?= $property_number ?>
+                            </h3>
+                            <p>In numquam omittam sea.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="../../../uploads/property/<?= $property_img_5 ?>"
+                            alt="Third slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>
+                                <?= $property_number ?>
+                            </h3>
+                            <p>Lorem ipsum dolor sit amet, virtute consequat ea qui, minim graeco mel no.</p>
+                        </div>
+                    </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExample-cf" role="button" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -296,29 +334,7 @@ function getMostProfitFromandlords($con)
                 </a>
             </div>
         </div>
-        <div class="col-md-6 col-lg-6 order-2 mb-4">
-            <div class="card h-100">
-                <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5 class="card-title m-0 me-2">Transactions</h5>
-                    <div class="dropdown">
-                        <button class="btn p-0" type="button" id="transactionID" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            <i class="bx bx-dots-vertical-rounded"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
-                            <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-                            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-                            <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <ul class="p-0 m-0">
-                        <?php getMostProfitFromandlords($con); ?>
-                    </ul>
-                </div>
-            </div>
-        </div>
+
     </div>
 
 </div>

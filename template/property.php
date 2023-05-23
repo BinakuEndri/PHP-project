@@ -41,6 +41,14 @@ $owner_img = $row2['Owner_img'];
 
 
 $con->close();
+
+$property = require '../PHP/properties/property.php';
+$recentProperties = $property->getRecentProperies();
+$cities = $property->getAllCitiesFromProperties();
+
+
+
+
 ?>
 
 
@@ -196,59 +204,9 @@ $con->close();
                     </div>
                     <!-- End description area  -->
 
-                    <div class="section additional-details">
 
-                        <h4 class="s-property-title">Additional Details</h4>
-
-                        <ul class="additional-details-list clearfix">
-                            <li>
-                                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Waterfront</span>
-                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Yes</span>
-                            </li>
-
-                            <li>
-                                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Built In</span>
-                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">2003</span>
-                            </li>
-                            <li>
-                                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Parking</span>
-                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">2 Or More Spaces,Covered
-                                    Parking,Valet Parking</span>
-                            </li>
-
-                            <li>
-                                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Waterfront</span>
-                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Yes</span>
-                            </li>
-
-                            <li>
-                                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">View</span>
-                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Intracoastal View,Direct ew</span>
-                            </li>
-
-                            <li>
-                                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Waterfront Description:</span>
-                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Intracoastal Front,Ocean
-                                    Access</span>
-                            </li>
-
-                        </ul>
-                    </div>
                     <!-- End additional-details area  -->
 
-                    <div class="section property-features">
-
-                        <h4 class="s-property-title">Features</h4>
-                        <ul>
-                            <li><a href="properties.html">Swimming Pool</a></li>
-                            <li><a href="properties.html">3 Stories</a></li>
-                            <li><a href="properties.html">Central Cooling</a></li>
-                            <li><a href="properties.html">Jog Path 2</a></li>
-                            <li><a href="properties.html">2 Lawn</a></li>
-                            <li><a href="properties.html">Bike Path</a></li>
-                        </ul>
-
-                    </div>
                     <!-- End features area  -->
 
                     <div class="section property-video">
@@ -357,70 +315,29 @@ $con->close();
                         </div>
                         <div class="panel-body recent-property-widget">
                             <ul>
-                                <li>
-                                    <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                                        <a href="single.html"><img src="assets/img/demo/small-property-2.jpg"></a>
-                                        <span class="property-seeker">
-                                            <b class="b-1">A</b>
-                                            <b class="b-2">S</b>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                                        <h6> <a href="single.html">Super nice villa </a></h6>
-                                        <span class="property-price">3000000$</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="col-md-3 col-sm-3  col-xs-3 blg-thumb p0">
-                                        <a href="single.html"><img src="assets/img/demo/small-property-1.jpg"></a>
-                                        <span class="property-seeker">
-                                            <b class="b-1">A</b>
-                                            <b class="b-2">S</b>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                                        <h6> <a href="single.html">Super nice villa </a></h6>
-                                        <span class="property-price">3000000$</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                                        <a href="single.html"><img src="assets/img/demo/small-property-3.jpg"></a>
-                                        <span class="property-seeker">
-                                            <b class="b-1">A</b>
-                                            <b class="b-2">S</b>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                                        <h6> <a href="single.html">Super nice villa </a></h6>
-                                        <span class="property-price">3000000$</span>
-                                    </div>
-                                </li>
+                                <?php foreach ($recentProperties as $recent) {
+                                    ?>
+                                    <li>
+                                        <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
+                                            <a href="property.php?<?= $recent["Property_ID"] ?>">
+                                                <img src="../uploads/property/<?= $recent["Property_Cover"] ?>">
+                                            </a>
+                                            <span class="property-seeker">
+                                                <b class="b-1">A</b>
+                                                <b class="b-2">S</b>
+                                            </span>
+                                        </div>
+                                        <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
+                                            <h6> <a href="property.php?<?= $recent["Property_ID"] ?>"><?php echo $recent["Property_Number"] . " " . $recent["Property_Type"] ?> </a></h6>
+                                            <span class="property-price">
+                                                <?= $recent["RentAmount"] ?>€
+                                            </span>
+                                        </div>
+                                    </li>
 
-                                <li>
-                                    <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                                        <a href="single.html"><img src="assets/img/demo/small-property-2.jpg"></a>
-                                        <span class="property-seeker">
-                                            <b class="b-1">A</b>
-                                            <b class="b-2">S</b>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                                        <h6> <a href="single.html">Super nice villa </a></h6>
-                                        <span class="property-price">3000000$</span>
-                                    </div>
-                                </li>
+                                <?php } ?>
 
                             </ul>
-                        </div>
-                    </div>
-
-                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Ads her </h3>
-                        </div>
-                        <div class="panel-body recent-property-widget">
-                            <img src="assets/img/ads.jpg">
                         </div>
                     </div>
 
@@ -429,11 +346,12 @@ $con->close();
                             <h3 class="panel-title">Smart search</h3>
                         </div>
                         <div class="panel-body search-widget">
-                            <form action="" class=" form-inline">
+                            <form method="POST" action="filterdProperties.php" class="form-inline">
                                 <fieldset>
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <input type="text" class="form-control" placeholder="Key word">
+                                            <input type="text" class="form-control" placeholder="Key word" id="keyword"
+                                                name="keyword">
                                         </div>
                                     </div>
                                 </fieldset>
@@ -443,23 +361,14 @@ $con->close();
                                         <div class="col-xs-6">
 
                                             <select id="lunchBegins" class="selectpicker" data-live-search="true"
-                                                data-live-search-style="begins" title="Select Your City">
+                                                data-live-search-style="begins" title="Select Your City" name="city">
+                                                <?php
+                                                foreach ($cities as $city) {
+                                                    $propertyCity = $city['Property_City'];
+                                                    echo "<option value='$propertyCity '>" . $city['Property_City'] . "</option>";
+                                                }
 
-                                                <option>New york, CA</option>
-                                                <option>Paris</option>
-                                                <option>Casablanca</option>
-                                                <option>Tokyo</option>
-                                                <option>Marraekch</option>
-                                                <option>kyoto , shibua</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-xs-6">
-
-                                            <select id="basic" class="selectpicker show-tick form-control">
-                                                <option> -Status- </option>
-                                                <option>Rent </option>
-                                                <option>Boy</option>
-                                                <option>used</option>
+                                                ?>
 
                                             </select>
                                         </div>
@@ -469,122 +378,33 @@ $con->close();
                                 <fieldset class="padding-5">
                                     <div class="row">
                                         <div class="col-xs-6">
-                                            <label for="price-range">Price range ($):</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0"
-                                                data-slider-max="600" data-slider-step="5" data-slider-value="[0,450]"
-                                                id="price-range"><br />
-                                            <b class="pull-left color">2000$</b>
-                                            <b class="pull-right color">100000$</b>
+                                            <input type="hidden" name="minPrice" id="min-price" value="">
+                                            <input type="hidden" name="maxPrice" id="max-price" value="">
+
+                                            <label for="price-range">Price range (€):</label>
+                                            <input type="text" class="span2" value="" data-slider-min="100"
+                                                data-slider-max="1000" data-slider-step="10"
+                                                data-slider-value="[100,500]" id="price-range"><br />
+                                            <b class="pull-left color">100€</b>
+                                            <b class="pull-right color">1000€</b>
                                         </div>
                                         <div class="col-xs-6">
-                                            <label for="property-geo">Property geo (m2) :</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0"
-                                                data-slider-max="600" data-slider-step="5" data-slider-value="[50,450]"
+                                            <input type="hidden" name="minSize" id="min-size" value="">
+                                            <input type="hidden" name="maxSize" id="max-size" value="">
+                                            <label for="property-geo">Property size (m2) :</label>
+                                            <input type="text" class="span2" value="" data-slider-min="40"
+                                                data-slider-max="500" data-slider-step="10" data-slider-value="[40,300]"
                                                 id="property-geo"><br />
-                                            <b class="pull-left color">40m</b>
-                                            <b class="pull-right color">12000m</b>
+                                            <b class="pull-left color">40m²</b>
+                                            <b class="pull-right color">500m²</b>
                                         </div>
                                     </div>
                                 </fieldset>
-
-                                <fieldset class="padding-5">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <label for="price-range">Min baths :</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0"
-                                                data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]"
-                                                id="min-baths"><br />
-                                            <b class="pull-left color">1</b>
-                                            <b class="pull-right color">120</b>
-                                        </div>
-
-                                        <div class="col-xs-6">
-                                            <label for="property-geo">Min bed :</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0"
-                                                data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]"
-                                                id="min-bed"><br />
-                                            <b class="pull-left color">1</b>
-                                            <b class="pull-right color">120</b>
-
-                                        </div>
-                                    </div>
-                                </fieldset>
-
-                                <fieldset class="padding-5">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <div class="checkbox">
-                                                <label> <input type="checkbox" checked> Fire Place</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6">
-                                            <div class="checkbox">
-                                                <label> <input type="checkbox"> Dual Sinks</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-
-                                <fieldset class="padding-5">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <div class="checkbox">
-                                                <label> <input type="checkbox" checked> Swimming Pool</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <div class="checkbox">
-                                                <label> <input type="checkbox" checked> 2 Stories </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-
-                                <fieldset class="padding-5">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox"> Laundry Room </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <div class="checkbox">
-                                                <label> <input type="checkbox"> Emergency Exit</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-
-                                <fieldset class="padding-5">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <div class="checkbox">
-                                                <label> <input type="checkbox" checked> Jog Path </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <div class="checkbox">
-                                                <label> <input type="checkbox"> 26' Ceilings </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-
-                                <fieldset class="padding-5">
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <div class="checkbox">
-                                                <label> <input type="checkbox"> Hurricane Shutters </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-
                                 <fieldset>
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <input class="button btn largesearch-btn" value="Search" type="submit">
+                                            <input class="button btn largesearch-btn" value="Search" name="theSubmit"
+                                                type="submit">
                                         </div>
                                     </div>
                                 </fieldset>
@@ -598,4 +418,37 @@ $con->close();
 
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+
+        // create ajax function that takes #keyword as value and sends to search.php
+
+        // Initialize the slider
+        $('#price-range').slider();
+
+        // Add an event listener for the slide event
+        $('#price-range').on('slide', function (event) {
+
+            var values = event.value;
+
+            $("#min-price").val(values[0]);
+            $("#max-price").val(values[1]);
+
+        });
+        $('#property-geo').slider();
+
+        // Add an event listener for the slide event
+        $('#property-geo').on('slide', function (event) {
+
+            var values = event.value;
+
+            $("#min-size").val(values[0]);
+            $("#max-size").val(values[1]);
+        });
+    });
+
+
+</script>
+
 <?php include 'footer.php' ?>

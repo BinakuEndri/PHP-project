@@ -11,6 +11,8 @@ $property = require '../PHP/properties/property.php';
 
 $properties = $property->getAllProperties();
 $cities = $property->getAllCitiesFromProperties();
+$recentProperties = $property->getRecentProperies();
+
 ?>
 
 <div class="slider-area">
@@ -31,42 +33,42 @@ $cities = $property->getAllCitiesFromProperties();
                     sit ipsam laboriosam velit adipisci quibusdam aliquam teneturo!</p>
                 <div class="search-form wow pulse" data-wow-delay="0.8s">
 
-                    <form action="" class=" form-inline">
+                    <form action="filterdProperties.php" method="POST" class=" form-inline">
                         <button class="btn  toggle-btn" type="button"><i class="fa fa-bars"></i></button>
 
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Key word">
+                            <div class="col-xs-12">
+                                <input type="text" class="form-control" placeholder="Key word" id="keyword"
+                                    name="keyword">
+                            </div>
                         </div>
                         <div class="form-group">
                             <select id="lunchBegins" class="selectpicker" data-live-search="true"
-                                data-live-search-style="begins" title="Select your city">
-                                <?php foreach ($cities as $city) { ?>
-                                    <option>
-                                        <?= $city['Property_City'] ?>
-                                    </option>
-                                <?php } ?>
+                                data-live-search-style="begins" title="Select Your City" name="city">
+                                <?php
+                                foreach ($cities as $city) {
+                                    $propertyCity = $city['Property_City'];
+                                    echo "<option value='$propertyCity '>" . $city['Property_City'] . "</option>";
+                                }
+
+                                ?>
 
                             </select>
                         </div>
-                        <div class="form-group">
-                            <select id="basic" class="selectpicker show-tick form-control">
-                                <option> -Status- </option>
-                                <option>Rent </option>
-                                <option>Boy</option>
-                                <option>used</option>
-
-                            </select>
-                        </div>
-                        <button class="btn search-btn" type="submit"><i class="fa fa-search"></i></button>
+                        <button class="btn search-btn" type="submit" name="theSubmit"><i
+                                class="fa fa-search"></i></button>
 
                         <div style="display: none;" class="search-toggle">
 
                             <div class="search-row">
 
                                 <div class="form-group mar-r-20">
+                                    <input type="hidden" name="minPrice" id="min-price" value="">
+                                    <input type="hidden" name="maxPrice" id="max-price" value="">
+
                                     <label for="price-range">Price range (€):</label>
                                     <input type="text" class="span2" value="" data-slider-min="100"
-                                        data-slider-max="1000" data-slider-step="20" data-slider-value="[100,450]"
+                                        data-slider-max="1000" data-slider-step="10" data-slider-value="[100,500]"
                                         id="price-range"><br />
                                     <b class="pull-left color">100€</b>
                                     <b class="pull-right color">1000€</b>
@@ -74,39 +76,18 @@ $cities = $property->getAllCitiesFromProperties();
                                 <!-- End of  -->
 
                                 <div class="form-group mar-l-20">
-                                    <label for="property-geo">Property geo (m2) :</label>
+                                    <input type="hidden" name="minSize" id="min-size" value="">
+                                    <input type="hidden" name="maxSize" id="max-size" value="">
+                                    <label for="property-geo">Property size (m2) :</label>
                                     <input type="text" class="span2" value="" data-slider-min="40" data-slider-max="500"
-                                        data-slider-step="10" data-slider-value="[40,200]" id="property-geo"><br />
+                                        data-slider-step="10" data-slider-value="[40,300]" id="property-geo"><br />
                                     <b class="pull-left color">40m²</b>
                                     <b class="pull-right color">500m²</b>
                                 </div>
                                 <!-- End of  -->
                             </div>
-
-                            <div class="search-row">
-
-                                <div class="form-group mar-r-20">
-                                    <label for="price-range">Min baths :</label>
-                                    <input type="text" class="span2" value="" data-slider-min="1" data-slider-max="6"
-                                        data-slider-step="1" data-slider-value="[1,2]" id="min-baths"><br />
-                                    <b class="pull-left color">1</b>
-                                    <b class="pull-right color">6</b>
-                                </div>
-                                <!-- End of  -->
-
-                                <div class="form-group mar-l-20">
-                                    <label for="property-geo">Min bed :</label>
-                                    <input type="text" class="span2" value="" data-slider-min="1" data-slider-max="10"
-                                        data-slider-step="1" data-slider-value="[1,3]" id="min-bed"><br />
-                                    <b class="pull-left color">1</b>
-                                    <b class="pull-right color">10</b>
-                                </div>
-                                <!-- End of  -->
-
-                            </div>
                             <br>
-                            <button class="btn search-btn prop-btm-sheaerch" type="submit"><i
-                                    class="fa fa-search"></i></button>
+
                         </div>
 
                     </form>
@@ -166,7 +147,7 @@ $cities = $property->getAllCitiesFromProperties();
                             <i class="fa fa-th"></i>
                         </div>
                         <div class="more-entry overflow">
-                            <h5><a href="property-1.html">CAN'T DECIDE ? </a></h5>
+                            <h5><a href="properties.php">CAN'T DECIDE ? </a></h5>
                             <h5 class="tree-sub-ttl">Show all properties</h5>
                             <button class="btn border-btn more-black" value="All properties">All properties</button>
                         </div>
@@ -379,7 +360,7 @@ $cities = $property->getAllCitiesFromProperties();
                         <p> varius od lio eget conseq uat blandit, lorem auglue comm lodo nisl no us nibh mas lsa</p>
                     </div>
                     <div class="asks-first-arrow">
-                        <a href="properties.html"><span class="fa fa-angle-right"></span></a>
+                        <a href="properties.php"><span class="fa fa-angle-right"></span></a>
                     </div>
                 </div>
             </div>
@@ -393,15 +374,48 @@ $cities = $property->getAllCitiesFromProperties();
                         <p> varius od lio eget conseq uat blandit, lorem auglue comm lodo nisl no us nibh mas lsa</p>
                     </div>
                     <div class="asks-first-arrow">
-                        <a href="properties.html"><span class="fa fa-angle-right"></span></a>
+                        <a href="../dashboardTemplate/html/login.php"><span class="fa fa-angle-right"></span></a>
                     </div>
                 </div>
             </div>
             <div class="col-xs-12">
-                <p class="asks-call">QUESTIONS? CALL US : <span class="strong"> + 3-123- 424-5700</span></p>
+                <p class="asks-call">QUESTIONS? CALL US : <span class="strong">+383 44 000 000</span></p>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+
+        // create ajax function that takes #keyword as value and sends to search.php
+
+        // Initialize the slider
+        $('#price-range').slider();
+
+        // Add an event listener for the slide event
+        $('#price-range').on('slide', function (event) {
+
+            var values = event.value;
+
+            $("#min-price").val(values[0]);
+            $("#max-price").val(values[1]);
+
+
+
+        });
+        $('#property-geo').slider();
+
+        // Add an event listener for the slide event
+        $('#property-geo').on('slide', function (event) {
+
+            var values = event.value;
+
+            $("#min-size").val(values[0]);
+            $("#max-size").val(values[1]);
+        });
+    });
+
+
+</script>
 
 <?php include 'footer.php' ?>

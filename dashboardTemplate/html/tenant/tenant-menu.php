@@ -122,6 +122,15 @@ if (isset($_SESSION["Tenant_ID"])) {
                 <div data-i18n="Account Settings">Complains For You</div>
               </a>
             </li>
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text"></span>
+            </li>
+            <li class="menu-item">
+              <a href="../../../template/index.php" class="menu-link ">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">To landing</div>
+              </a>
+            </li>
 
           </ul>
         </aside>

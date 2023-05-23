@@ -5,6 +5,7 @@ $property = require '../PHP/properties/property.php';
 
 $properties = $property->getAllProperties();
 $cities = $property->getAllCitiesFromProperties();
+$recentProperties = $property->getRecentProperies();
 
 
 
@@ -21,6 +22,12 @@ $cities = $property->getAllCitiesFromProperties();
 </div>
 <!-- End page header -->
 
+
+<?php
+
+
+?>
+
 <!-- property area -->
 <div class="properties-area recent-property" style="background-color: #FFF;">
     <div class="container">
@@ -33,11 +40,12 @@ $cities = $property->getAllCitiesFromProperties();
                             <h3 class="panel-title">Smart search</h3>
                         </div>
                         <div class="panel-body search-widget">
-                            <form action="" class=" form-inline">
+                            <form method="POST" class="form-inline">
                                 <fieldset>
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <input type="text" class="form-control" placeholder="Key word" id="keyword">
+                                            <input type="text" class="form-control" placeholder="Key word" id="keyword"
+                                                name="keyWord">
                                         </div>
                                     </div>
                                 </fieldset>
@@ -50,20 +58,11 @@ $cities = $property->getAllCitiesFromProperties();
                                                 data-live-search-style="begins" title="Select Your City">
                                                 <?php
                                                 foreach ($cities as $city) {
-                                                    echo "<option>" . $city['Property_City'] . "</option>";
+                                                    $propertyCity = $city['Property_City'];
+                                                    echo "<option value='$propertyCity '>" . $city['Property_City'] . "</option>";
                                                 }
 
                                                 ?>
-
-                                            </select>
-                                        </div>
-                                        <div class="col-xs-6">
-
-                                            <select id="basic" class="selectpicker show-tick form-control">
-                                                <option> -Status- </option>
-                                                <option>Rent </option>
-                                                <option>Boy</option>
-                                                <option>used</option>
 
                                             </select>
                                         </div>
@@ -73,6 +72,9 @@ $cities = $property->getAllCitiesFromProperties();
                                 <fieldset class="padding-5">
                                     <div class="row">
                                         <div class="col-xs-6">
+                                            <input type="hidden" name="min-price" id="min-price" value="">
+                                            <input type="hidden" name="max-price" id="max-price" value="">
+
                                             <label for="price-range">Price range (€):</label>
                                             <input type="text" class="span2" value="" data-slider-min="100"
                                                 data-slider-max="1000" data-slider-step="10"
@@ -81,6 +83,8 @@ $cities = $property->getAllCitiesFromProperties();
                                             <b class="pull-right color">1000€</b>
                                         </div>
                                         <div class="col-xs-6">
+                                            <input type="hidden" name="min-size" id="min-size" value="">
+                                            <input type="hidden" name="max-size" id="max-size" value="">
                                             <label for="property-geo">Property size (m2) :</label>
                                             <input type="text" class="span2" value="" data-slider-min="40"
                                                 data-slider-max="500" data-slider-step="10" data-slider-value="[40,300]"
@@ -90,34 +94,11 @@ $cities = $property->getAllCitiesFromProperties();
                                         </div>
                                     </div>
                                 </fieldset>
-
-                                <fieldset class="padding-5">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <label for="price-range">Min baths :</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0"
-                                                data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]"
-                                                id="min-baths"><br />
-                                            <b class="pull-left color">1</b>
-                                            <b class="pull-right color">120</b>
-                                        </div>
-
-
-                                        <div class="col-xs-6">
-                                            <label for="property-geo">Min bed :</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0"
-                                                data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]"
-                                                id="min-bed"><br />
-                                            <b class="pull-left color">1</b>
-                                            <b class="pull-right color">120</b>
-
-                                        </div>
-                                    </div>
-                                </fieldset>
                                 <fieldset>
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <input class="button btn largesearch-btn" value="Search" type="submit">
+                                            <input class="button btn largesearch-btn" value="Search" name="searchBy"
+                                                type="button" onclick="search()">
                                         </div>
                                     </div>
                                 </fieldset>
@@ -127,23 +108,31 @@ $cities = $property->getAllCitiesFromProperties();
 
                     <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Recommended</h3>
+                            <h3 class="panel-title">Recent</h3>
                         </div>
                         <div class="panel-body recent-property-widget">
                             <ul>
-                                <li>
-                                    <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                                        <a href="single.html"><img src="assets/img/demo/small-property-2.jpg"></a>
-                                        <span class="property-seeker">
-                                            <b class="b-1">A</b>
-                                            <b class="b-2">S</b>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                                        <h6> <a href="single.html">Super nice villa </a></h6>
-                                        <span class="property-price">3000000$</span>
-                                    </div>
-                                </li>
+                                <?php foreach ($recentProperties as $recent) {
+                                    ?>
+                                    <li>
+                                        <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
+                                            <a href="property.php?<?= $recent["Property_ID"] ?>">
+                                                <img src="../uploads/property/<?= $recent["Property_Cover"] ?>">
+                                            </a>
+                                            <span class="property-seeker">
+                                                <b class="b-1">A</b>
+                                                <b class="b-2">S</b>
+                                            </span>
+                                        </div>
+                                        <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
+                                            <h6> <a href="property.php?<?= $recent["Property_ID"] ?>"><?php echo $recent["Property_Number"] . " " . $recent["Property_Type"] ?> </a></h6>
+                                            <span class="property-price">
+                                                <?= $recent["RentAmount"] ?>€
+                                            </span>
+                                        </div>
+                                    </li>
+
+                                <?php } ?>
 
                             </ul>
                         </div>
@@ -169,21 +158,6 @@ $cities = $property->getAllCitiesFromProperties();
                             </li>
                         </ul><!--/ .sort-by-list-->
 
-                        <div class="items-per-page">
-                            <label for="items_per_page"><b>Property per page :</b></label>
-                            <div class="sel">
-                                <select id="items_per_page" name="per_page">
-                                    <option value="3">3</option>
-                                    <option value="6">6</option>
-                                    <option value="9">9</option>
-                                    <option selected="selected" value="12">12</option>
-                                    <option value="15">15</option>
-                                    <option value="30">30</option>
-                                    <option value="45">45</option>
-                                    <option value="60">60</option>
-                                </select>
-                            </div><!--/ .sel-->
-                        </div><!--/ .items-per-page-->
                     </div>
 
                     <div class="col-xs-2 layout-switcher">
@@ -238,21 +212,6 @@ $cities = $property->getAllCitiesFromProperties();
                     </div>
                 </div>
 
-
-                <div class="col-md-12">
-                    <div class="pull-right">
-                        <div class="pagination">
-                            <ul>
-                                <li><a href="#">Prev</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">Next</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <script>
@@ -283,7 +242,9 @@ $cities = $property->getAllCitiesFromProperties();
 
                         var values = event.value;
 
-                        // ajax function
+                        $("#min-price").val(values[0]);
+                        $("#max-price").val(values[1]);
+
 
                         $.ajax({
                             url: "../PHP/properties/search.php",
@@ -298,12 +259,51 @@ $cities = $property->getAllCitiesFromProperties();
                             }
                         });
                     });
+                    $('#property-geo').slider();
+
+                    // Add an event listener for the slide event
+                    $('#property-geo').on('slide', function (event) {
+
+                        var values = event.value;
+
+                        $("#min-size").val(values[0]);
+                        $("#max-size").val(values[1]);
+                    });
                 });
+
+                function search() {
+                    var keyword = $("#keyword").val();
+                    var city = $("#lunchBegins").val();
+                    var minPrice = $("#min-price").val();
+                    var maxPrice = $("#max-price").val();
+                    var minSize = $("#min-size").val();
+                    var maxSize = $("#max-size").val();
+
+                    $.ajax({
+                        url: "../PHP/properties/secondSearch.php",
+                        method: "POST",
+                        data: { keyword: keyword, city: city, minPrice: minPrice, maxPrice: maxPrice, minSize: minSize, maxSize: maxSize },
+                        success: function (data) {
+                            $("#theDiv").html(data);
+                            if (keyword == "") {
+                                $("#list-type").show;
+                            }
+                            $("#list-type").hide;
+                        }
+                    });
+                }
 
             </script>
         </div>
     </div>
 </div>
 
+
+
+
 <!-- Footer area-->
-<?php include 'footer.php' ?>
+<?php include 'footer.php';
+
+
+
+?>
